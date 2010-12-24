@@ -25,11 +25,28 @@
       var nextStep = [];
       
       $(function(){
+        toggle();
         makeGrid();
         randomize();
         createNext();
       });
-      
+
+      // swap step
+      function toggle(){
+        $('#status').click(function(){
+          if ($(this).html() == 'stop'){
+            $(this).html('start');
+          } else {
+            $(this).html('stop');
+          }
+          $(this).toggleClass('active');
+          
+          createNext();
+          
+          return false;
+        });
+      }
+
       function makeGrid(){
         ih = 0;
 
@@ -58,25 +75,27 @@
       }
       
       function createNext(){
-        $('#step').click(function(){
-          // zero out array for results
-          nextStep = [];
+        // zero out array for results
+        nextStep = [];
 
-          // for each cell, add whether it will live or die into the array
-          $('#container div').each(function(){
-            getSurroundings($(this).attr('id'));
-          });
-
-          // for each in the array, set the cell's class
-          $.each(nextStep, function(index, value){
-            $('#container div:eq(' + index + ')').attr('class', 'cell' + value);
-          });
-          
-          return false;
+        // for each cell, add whether it will live or die into the array
+        $('#container div').each(function(){
+          getSurroundings($(this).attr('id'));
         });
+
+        // for each in the array, set the cell's class
+        $.each(nextStep, function(index, value){
+          $('#container div:eq(' + index + ')').attr('class', 'cell' + value);
+        });
+
+        // if the toggle is active, run again
+        if ($('#status').hasClass('active')) {
+          // pause for a ms to keep browser from freezing up
+          setTimeout("createNext();", 1);
+        }
       }
       
-      
+      // for each surrounding cell, increment liveCount, then push that into the array
       function getSurroundings(id){
         thisClass = parseInt($('#' + id).attr('class').replace(/cell/, ''), 10);
         liveCount = 0;
@@ -178,7 +197,8 @@
     </script>
   </head>
   <body>
-    <a id="step" href="#">step forward</a>
+    <a id="status" href="#">start</a>
+    <br>
     <br>
     <div id="container"></div>
   </body>
