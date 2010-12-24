@@ -3,15 +3,16 @@ var height = 50;
 var length = width * height;
 var cellSize = 7;
 var liveCount;
+var initial = true;
 var state = [];
+var newStat = [];
 
 $(function(){
-  // toggle();
+  toggle();
   setContainer();
   makeGrid();
-  render();
-  // randomize();
-  // createNext();
+  render(state);
+  createNext();
 });
 
 // swap step
@@ -30,10 +31,12 @@ function toggle(){
   });
 }
 
+// sizes the container
 function setContainer(){
   $('#container').css({'width': width * cellSize, 'height': height * cellSize});
 }
 
+// creates nested array structure filled randomly
 function makeGrid(){
   ih = 0;
   
@@ -54,33 +57,47 @@ function makeGrid(){
   // $('body').append(prettyPrint(state));
 }
 
-function render(){
-  for (var i in state) {
-    for (var val in state[i]) {
-      $('#container').append('<div style="width: ' + cellSize + 'px; height: ' + cellSize + 'px;" class="cell' + state[i][val] + '"></div>');
+// loop through the array and display it
+function render(lifeArray){
+  // master count - incremented for each cell
+  count = 0;
+
+  for (var x = 0; x < lifeArray.length; x++) {
+    for (var y = 0; y < lifeArray[x].length; y++) {
+      if (initial) {
+        $('#container').append('<div style="width: ' + cellSize + 'px; height: ' + cellSize + 'px;" class="cell' + lifeArray[x][y] + '"></div>');
+      } else {
+        $('#container div:eq(' + count + ')').attr('class', 'cell' + lifeArray[x][y]);
+      }
+
+      count++;
     }
   }
-}
 
-function randomize(){
-  $('#container div').each(function(){
-    $(this).attr('class', 'cell' + Math.floor(Math.random() * 2));
-  });
+  // turn off the initial flag so the divs don't get added next time
+  initial = false;
 }
 
 function createNext(){
   // zero out array for results
-  nextStep = [];
+  newState = [];
 
   // for each cell, add whether it will live or die into the array
-  $('#container div').each(function(){
-    getSurroundings($(this).attr('id'));
-  });
+  for (var x = 0; x < state.length; x++) {
+    // add an array for this row
+    newState[x] = [];
+    for (var y = 0; y < state[x].length; y++) {
+      newState[x][y] = logic(state[x][y], getSurroundings(x, y, state[x][y]));
+    }
+  }
 
-  // for each in the array, set the cell's class
-  $.each(nextStep, function(index, value){
-    $('#container div:eq(' + index + ')').attr('class', 'cell' + value);
-  });
+  // print the hash
+  // $('body').append(prettyPrint(newState));
+
+  state = newState;
+
+  // render the new state
+  render(state);
 
   // if the toggle is active, run again
   if ($('#status').hasClass('active')) {
@@ -90,27 +107,26 @@ function createNext(){
 }
 
 // for each surrounding cell, increment liveCount, then push that into the array
-function getSurroundings(id){
-  thisClass = parseInt($('#' + id).attr('class').replace(/cell/, ''), 10);
+function getSurroundings(x, y, value){
   liveCount = 0;
-
-  split = id.split('-');
-  x = parseInt(split[0], 10);
-  y = parseInt(split[1], 10);
 
   // next
   if (x + 1 >= width) {
-    getVal($('#' + (width - 1 - x) + '-' + y));
+    next = width - 1 - x;
   } else {
-    getVal($('#' + (x + 1) + '-' + y));
+    next = x + 1;
   }
+
+  liveCount += state[next][y];
   
   // previous
   if (x <= 0) {
-    getVal($('#' + (width - 1 - x) + '-' + y));
+    prev = width - 1 - x;
   } else {
-    getVal($('#' + (x - 1) + '-' + y));
+    prev = x - 1;
   }
+
+  liveCount += state[prev][y];
 
   // above
   if (y - 1 < 0) {
@@ -118,22 +134,14 @@ function getSurroundings(id){
   } else {
     aboveY = y - 1;
   }
-  
-  getVal($('#' + x + '-' + aboveY));
+
+  liveCount += state[x][aboveY];
 
   // above left
-  if (x <= 0) {
-    getVal($('#' + (width - 1 - x) + '-' + aboveY));
-  } else {
-    getVal($('#' + (x - 1) + '-' + aboveY));
-  }
+  liveCount += state[prev][aboveY];
 
   // above right
-  if (x + 1 >= width) {
-    getVal($('#' + (width - 1 - x) + '-' + aboveY));
-  } else {
-    getVal($('#' + (x + 1) + '-' + aboveY));
-  }
+  liveCount += state[next][aboveY];
 
   // below
   if (y + 1 == height) {
@@ -141,34 +149,21 @@ function getSurroundings(id){
   } else {
     belowY = y + 1;
   }
-  
-  getVal($('#' + x + '-' + belowY));
+
+  liveCount += state[x][belowY];
 
   // below left
-  if (x <= 0) {
-    getVal($('#' + (width - 1 - x) + '-' + belowY));
-  } else {
-    getVal($('#' + (x - 1) + '-' + belowY));
-  }
+  liveCount += state[prev][belowY];
 
   // below right
-  if (x + 1 >= width) {
-    getVal($('#' + (width - 1 - x) + '-' + belowY));
-  } else {
-    getVal($('#' + (x + 1) + '-' + belowY));
-  }
+  liveCount += state[next][belowY];
   
-  nextStep.push(logic(thisClass, liveCount));
-}
-
-// increment the live count for the cell
-function getVal(obj){
-  liveCount += parseInt(obj.attr('class').replace(/cell/, ''), 10);
+  return liveCount;
 }
 
 // should this cell live or die?
-function logic(thisClass, liveCount) {
-  if (thisClass == 0) {
+function logic(current, liveCount) {
+  if (current == 0) {
     if (liveCount == 3) {
       return 1;
     } else {
