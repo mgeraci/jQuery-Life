@@ -1,0 +1,114 @@
+<html>
+  <head>
+    <title>jQuery Life - Michael P. Geraci</title>
+    <style>
+      #container{
+        float: left;
+        border: 1px solid #000;
+      }
+
+      #container div{
+        float: left;
+        display: block;
+      }
+
+      .cell0{background: #fff;}
+      .cell1{background: #000;}
+    </style>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+    <script type="text/javascript">
+      var width = 50;
+      var height = 50;
+      var cellSize = 7;
+      
+      $(function(){
+        makeGrid();
+        randomize();
+        ttest();
+      });
+      
+      function makeGrid(){
+        ih = 0;
+
+        while (ih < height) {
+          iw = 0;
+
+          while (iw < width) {
+            // add the cell
+            $('#container').append('<div id="' + iw + '-' + ih + '"></div>');
+            iw++;
+          }
+          ih++;
+        }
+        
+        // size the cells
+        $('#container div').css({'width': cellSize, 'height': cellSize});
+        
+        // size the container
+        $('#container').css({'width': width * cellSize, 'height': height * cellSize})
+      }
+      
+      function randomize(){
+        $('#container div').each(function(){
+          $(this).attr('class', 'cell' + Math.floor(Math.random() * 2));
+        });
+      }
+      
+      function ttest(){
+        $('body').click(function(){
+          getSurroundings('30-30');
+        })
+      }
+      
+      
+      function getSurroundings(id){
+        liveCount = 0;
+
+        split = id.split('-');
+        x = parseInt(split[0], 10);
+        y = parseInt(split[1], 10);
+
+        // next
+        if (x + 1 >= width) {
+          $('#' + (width - 1 - x) + '-' + y).css('background', '#f00');
+        } else {
+          $('#' + (x + 1) + '-' + y).css('background', '#f00');
+        }
+        
+        // previous
+        if (x <= 0) {
+          $('#' + (width - 1 - x) + '-' + y).css('background', '#f00');
+        } else {
+          $('#' + (x - 1) + '-' + y).css('background', '#f00');
+        }
+
+        // above
+        if (y - 1 < 0) {
+          $('#' + x + '-' + (height - 1)).css('background', '#f00');
+        } else {
+          $('#' + x + '-' + (y - 1)).css('background', '#f00');
+        }
+        
+        // above left
+        
+        // above right
+        
+        // below
+        if (y + 1 == height) {
+          $('#' + x + '-0').css('background', '#f00');
+        } else {
+          $('#' + x + '-' + (y + 1)).css('background', '#f00');
+        }
+        
+        // below left
+        
+        // below right
+        
+      }
+    </script>
+  </head>
+  <body>
+    <div id="container"></div>
+  </body>
+</html>
