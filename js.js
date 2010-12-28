@@ -5,17 +5,19 @@ var cellSize = 7;
 var liveCount;
 var initial = true;
 var state = [];
+var timer;
+var speed = 80;
 
 // run these functions on load
 $(function(){
-  toggle();
+  buttons();
   setContainer();
-  makeGrid();
-  render(state);
+  randomize();// initial randomization
+  render(state);// initial render
 });
 
 // control the running of the game
-function toggle(){
+function buttons(){
   $('#status').click(function(){
     if ($(this).html() == 'stop'){
       $(this).html('start');
@@ -29,6 +31,14 @@ function toggle(){
 
     return false;
   });
+  
+  $('#reset').click(function(){
+    $('#status').removeClass('active').html('start');
+
+    clearTimeout(timer);// stop the current iteration
+    randomize();// randomize a new grid
+    render(state);// render the new grid
+  });
 }
 
 // sizes the container
@@ -37,7 +47,7 @@ function setContainer(){
 }
 
 // creates nested array structure filled randomly
-function makeGrid(){
+function randomize(){
   // height count
   ih = 0;
   
@@ -61,16 +71,6 @@ function makeGrid(){
     }
     ih++;
   }
-
-// create a test glider
-// state[10][10] = 1;
-// state[11][11] = 1;
-// state[12][9] = 1;
-// state[12][10] = 1;
-// state[12][11] = 1;
-
-  // print the hash
-  // $('body').append('<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>').append(prettyPrint(state));
 }
 
 // loop through the array and display it
@@ -147,7 +147,7 @@ function createNext(){
   // if the toggle is active, run again
   if ($('#status').hasClass('active')) {
     // pause for a ms to keep browser from freezing up
-    setTimeout("createNext();", 1);
+    timer = setTimeout("createNext();", speed);
   }
 }
 
