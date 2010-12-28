@@ -22,7 +22,7 @@ function toggle(){
     } else {
       $(this).html('stop');
     }
-
+  
     $(this).toggleClass('active');
 
     createNext();
@@ -40,15 +40,15 @@ function setContainer(){
 function makeGrid(){
   // height count
   ih = 0;
-
+  
   // iterate through the heights
   while (ih < height) {
     // create a subarray for this row
     state[ih] = [];
-
+  
     // width count (set to zero in each row)
     iw = 0;
-
+  
     // iterate through the widths
     while (iw < width) {
       // random 0 or 1
@@ -61,6 +61,13 @@ function makeGrid(){
     }
     ih++;
   }
+
+// create a test glider
+// state[10][10] = 1;
+// state[11][11] = 1;
+// state[12][9] = 1;
+// state[12][10] = 1;
+// state[12][11] = 1;
 
   // print the hash
   // $('body').append('<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>').append(prettyPrint(state));
@@ -109,13 +116,24 @@ function createNext(){
   // zero out array for results
   newState = [];
 
-  // for each cell, add whether it will live or die into the array
-  for (var x = 0; x < state.length; x++) {
-    // add an array for this row
-    newState[x] = [];
-    for (var y = 0; y < state[x].length; y++) {
-      newState[x][y] = logic(state[x][y], getSurroundings(x, y, state[x][y]));
+  // height count
+  ih = 0;
+  
+  // iterate through the heights
+  while (ih < height) {
+    // create a subarray for this row
+    newState[ih] = [];
+  
+    // width count (set to zero in each row)
+    iw = 0;
+  
+    // iterate through the widths
+    while (iw < width) {
+      newState[ih][iw] = logic(state[ih][iw], getSurroundings(ih, iw, state[ih][iw]));
+
+      iw++;
     }
+    ih++;
   }
 
   // print the hash
@@ -206,13 +224,7 @@ function getSurroundings(x, y, value){
 
 // should this cell live or die?
 function logic(current, liveCount) {
-  if (current == 0) {
-    if (liveCount == 3) {
-      return 1;
-    } else {
-      return 0;
-    }
-  } else {
+  if (current == 1) {
     if (liveCount < 2) {
       return 0;
     }
@@ -222,6 +234,12 @@ function logic(current, liveCount) {
     }
 
     if (liveCount > 3) {
+      return 0;
+    }
+  } else {
+    if (liveCount == 3) {
+      return 1;
+    } else {
       return 0;
     }
   }
