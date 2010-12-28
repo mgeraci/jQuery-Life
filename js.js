@@ -1,7 +1,7 @@
-var width = 50;
-var height = 50;
+var width = 80;
+var height = 80;
 var length = width * height;
-var cellSize = 7;
+var cellSize = 6;
 var liveCount;
 var initial = true;
 var state = [];
