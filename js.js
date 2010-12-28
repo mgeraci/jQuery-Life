@@ -5,17 +5,16 @@ var cellSize = 7;
 var liveCount;
 var initial = true;
 var state = [];
-var newStat = [];
 
+// run these functions on load
 $(function(){
   toggle();
   setContainer();
   makeGrid();
   render(state);
-  createNext();
 });
 
-// swap step
+// control the running of the game
 function toggle(){
   $('#status').click(function(){
     if ($(this).html() == 'stop'){
@@ -23,10 +22,11 @@ function toggle(){
     } else {
       $(this).html('stop');
     }
+
     $(this).toggleClass('active');
-    
+
     createNext();
-    
+
     return false;
   });
 }
@@ -38,23 +38,32 @@ function setContainer(){
 
 // creates nested array structure filled randomly
 function makeGrid(){
+  // height count
   ih = 0;
-  
+
+  // iterate through the heights
   while (ih < height) {
+    // create a subarray for this row
     state[ih] = [];
-  
+
+    // width count (set to zero in each row)
     iw = 0;
-  
+
+    // iterate through the widths
     while (iw < width) {
-      state[ih][iw] = Math.floor(Math.random() * 2)
-  
+      // random 0 or 1
+      ran = Math.floor(Math.random() * 2);
+
+      // if 1, set in state array
+      (ran == 1) ? state[ih][iw] = 1 : '';
+
       iw++;
     }
     ih++;
   }
-  
+
   // print the hash
-  // $('body').append(prettyPrint(state));
+  // $('body').append('<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>').append(prettyPrint(state));
 }
 
 // loop through the array and display it
@@ -62,16 +71,34 @@ function render(lifeArray){
   // master count - incremented for each cell
   count = 0;
 
-  for (var x = 0; x < lifeArray.length; x++) {
-    for (var y = 0; y < lifeArray[x].length; y++) {
-      if (initial) {
-        $('#container').append('<div style="width: ' + cellSize + 'px; height: ' + cellSize + 'px;" class="cell' + lifeArray[x][y] + '"></div>');
+  // height count
+  ih = 0;
+
+  // iterate through the heights
+  while (ih < height) {
+    // width count (set to zero in each row)
+    iw = 0;
+
+    // iterate through the widths
+    while (iw < width) {
+      // set the value
+      if (lifeArray[ih][iw]) {
+        cell = '1';
       } else {
-        $('#container div:eq(' + count + ')').attr('class', 'cell' + lifeArray[x][y]);
+        cell = '0';
+      }
+
+      if (initial) {
+        $('#container').append('<div id="' + count + '" style="width: ' + cellSize + 'px; height: ' + cellSize + 'px;" class="cell' + cell + '"></div>');
+      } else {
+        $('#' + count).attr('class', 'cell' + cell);
       }
 
       count++;
+      iw++;
     }
+
+    ih++;
   }
 
   // turn off the initial flag so the divs don't get added next time
@@ -117,8 +144,10 @@ function getSurroundings(x, y, value){
     next = x + 1;
   }
 
-  liveCount += state[next][y];
-  
+  if (state[next][y]) {
+    liveCount += 1;
+  }
+
   // previous
   if (x <= 0) {
     prev = width - 1 - x;
@@ -126,7 +155,9 @@ function getSurroundings(x, y, value){
     prev = x - 1;
   }
 
-  liveCount += state[prev][y];
+  if (state[prev][y]) {
+    liveCount += 1;
+  }
 
   // above
   if (y - 1 < 0) {
@@ -135,13 +166,19 @@ function getSurroundings(x, y, value){
     aboveY = y - 1;
   }
 
-  liveCount += state[x][aboveY];
+  if (state[x][aboveY]) {
+    liveCount += 1;
+  }
 
   // above left
-  liveCount += state[prev][aboveY];
+  if (state[prev][aboveY]) {
+    liveCount += 1;
+  }
 
   // above right
-  liveCount += state[next][aboveY];
+  if (state[next][aboveY]) {
+    liveCount += 1;
+  }
 
   // below
   if (y + 1 == height) {
@@ -150,13 +187,19 @@ function getSurroundings(x, y, value){
     belowY = y + 1;
   }
 
-  liveCount += state[x][belowY];
+  if (state[x][belowY]) {
+    liveCount += 1;
+  }
 
   // below left
-  liveCount += state[prev][belowY];
+  if (state[prev][belowY]) {
+    liveCount += 1;
+  }
 
   // below right
-  liveCount += state[next][belowY];
+  if (state[next][belowY]) {
+    liveCount += 1;
+  }
   
   return liveCount;
 }
