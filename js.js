@@ -1,17 +1,14 @@
-var width = 80;
-var height = 80;
-var length = width * height;
-var cellSize = 6;
-var liveCount;
-var initial = true;
-var state = [];
-var timer;
-var speed = 80;
+var width = 80;// number of cells
+var height = 80;// number of cells
+var cellSize = 6;// size of each cell
+var liveCount;// numer of cells alive around a cell, used in logic
+var state = [];// holds the state of the game
+var timer;// a settimeout for ticking to the next generation
+var speed = 80;// speed in ms for the settimeout
 
 // run these functions on load
 $(function(){
   buttons();
-  setContainer();
   randomize();// initial randomization
   render(state);// initial render
 });
@@ -41,11 +38,6 @@ function buttons(){
   });
 }
 
-// sizes the container
-function setContainer(){
-  $('#container').css({'width': width * cellSize, 'height': height * cellSize});
-}
-
 // creates nested array structure filled randomly
 function randomize(){
   // height count
@@ -55,28 +47,43 @@ function randomize(){
   while (ih < height) {
     // create a subarray for this row
     state[ih] = [];
-  
+
     // width count (set to zero in each row)
     iw = 0;
-  
+
     // iterate through the widths
     while (iw < width) {
       // random 0 or 1
       ran = Math.floor(Math.random() * 2);
 
       // if 1, set in state array
-      (ran == 1) ? state[ih][iw] = 1 : '';
+      // (ran == 1) ? state[ih][iw] = 1 : '';
 
       iw++;
     }
     ih++;
   }
+
+  // make a glider to test wrapping
+  state[20][20] = 1;
+  state[20][21] = 1;
+  state[20][22] = 1;
+  state[19][22] = 1;
+  state[18][21] = 1;
 }
 
 // loop through the array and display it
 function render(lifeArray){
-  // master count - incremented for each cell
-  count = 0;
+  // get the canvas (the html element, and set the 2-dimensional context)
+  var c = $('#container');
+  var canvas = c[0].getContext('2d');
+
+  // set the canvas size
+  c.width(width * cellSize);
+  c.height(height * cellSize);
+
+  // clear the canvas
+  canvas.clearRect(0, 0, width * cellSize, height * cellSize);
 
   // height count
   ih = 0;
@@ -90,26 +97,14 @@ function render(lifeArray){
     while (iw < width) {
       // set the value
       if (lifeArray[ih][iw]) {
-        cell = '1';
-      } else {
-        cell = '0';
+        canvas.fillRect(iw * cellSize, ih * cellSize, cellSize, cellSize);
       }
 
-      if (initial) {
-        $('#container').append('<div id="' + count + '" style="width: ' + cellSize + 'px; height: ' + cellSize + 'px;" class="cell' + cell + '"></div>');
-      } else {
-        $('#' + count).attr('class', 'cell' + cell);
-      }
-
-      count++;
       iw++;
     }
 
     ih++;
   }
-
-  // turn off the initial flag so the divs don't get added next time
-  initial = false;
 }
 
 function createNext(){
