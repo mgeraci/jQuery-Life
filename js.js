@@ -31,6 +31,7 @@ function buttons(){
   
   $('#reset').click(function(){
     $('#status').removeClass('active').html('start');
+    $('#count').html(0);
 
     clearTimeout(timer);// stop the current iteration
     randomize();// randomize a new grid
@@ -138,6 +139,9 @@ function createNext(){
 
   // render the new state
   render(state);
+
+  // increment the generation count
+  $('#count').html(parseInt($('#count').html(), 10) + 1);
 
   // if the toggle is active, run again
   if ($('#status').hasClass('active')) {
