@@ -1,7 +1,7 @@
-var width = 80;// number of cells
-var height = 80;// number of cells
+var width = 200;// number of cells
+var height = 150;// number of cells
 var cellSize = 6;// size of each cell
-var liveCount;// numer of cells alive around a cell, used in logic
+var liveCount;// numer of cells alive around a cell, used in logic function
 var state = [];// holds the state of the game
 var timer;// a settimeout for ticking to the next generation
 var speed = 80;// speed in ms for the settimeout
@@ -42,7 +42,7 @@ function buttons(){
 function randomize(){
   // height count
   ih = 0;
-  
+
   // iterate through the heights
   while (ih < height) {
     // create a subarray for this row
@@ -147,7 +147,7 @@ function createNext(){
 }
 
 // for each surrounding cell, increment liveCount, then push that into the array
-function getSurroundings(x, y){
+function getSurroundings(y, x){
   liveCount = 0;
 
   // next
@@ -157,7 +157,7 @@ function getSurroundings(x, y){
     next = x + 1;
   }
 
-  if (state[next][y]) {
+  if (state[y][next]) {
     liveCount += 1;
   }
 
@@ -168,7 +168,7 @@ function getSurroundings(x, y){
     prev = x - 1;
   }
 
-  if (state[prev][y]) {
+  if (state[y][prev]) {
     liveCount += 1;
   }
 
@@ -179,38 +179,38 @@ function getSurroundings(x, y){
     aboveY = y - 1;
   }
 
-  if (state[x][aboveY]) {
+  if (state[aboveY][x]) {
     liveCount += 1;
   }
-
+  
   // above left
-  if (state[prev][aboveY]) {
+  if (state[aboveY][prev]) {
     liveCount += 1;
   }
-
+  
   // above right
-  if (state[next][aboveY]) {
+  if (state[aboveY][next]) {
     liveCount += 1;
   }
-
+  
   // below
   if (y + 1 == height) {
     belowY = 0
   } else {
     belowY = y + 1;
   }
-
-  if (state[x][belowY]) {
+  
+  if (state[belowY][x]) {
     liveCount += 1;
   }
-
+  
   // below left
-  if (state[prev][belowY]) {
+  if (state[belowY][prev]) {
     liveCount += 1;
   }
-
+  
   // below right
-  if (state[next][belowY]) {
+  if (state[belowY][next]) {
     liveCount += 1;
   }
   
