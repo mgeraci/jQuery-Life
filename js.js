@@ -57,7 +57,7 @@ function randomize(){
       ran = Math.floor(Math.random() * 2);
 
       // if 1, set in state array
-      // (ran == 1) ? state[ih][iw] = 1 : '';
+      (ran == 1) ? state[ih][iw] = 1 : '';
 
       iw++;
     }
@@ -65,11 +65,11 @@ function randomize(){
   }
 
   // make a glider to test wrapping
-  state[20][20] = 1;
-  state[20][21] = 1;
-  state[20][22] = 1;
-  state[19][22] = 1;
-  state[18][21] = 1;
+  // state[49][20] = 1;
+  // state[49][21] = 1;
+  // state[49][22] = 1;
+  // state[48][22] = 1;
+  // state[47][21] = 1;
 }
 
 // loop through the array and display it
@@ -79,30 +79,30 @@ function render(lifeArray){
   var canvas = c[0].getContext('2d');
 
   // set the canvas size
-  c.width(width * cellSize);
-  c.height(height * cellSize);
+  c[0].width = width * cellSize;
+  c[0].height = height * cellSize;
 
   // clear the canvas
   canvas.clearRect(0, 0, width * cellSize, height * cellSize);
 
   // height count
   ih = 0;
-
+  
   // iterate through the heights
   while (ih < height) {
     // width count (set to zero in each row)
     iw = 0;
-
+  
     // iterate through the widths
     while (iw < width) {
       // set the value
       if (lifeArray[ih][iw]) {
         canvas.fillRect(iw * cellSize, ih * cellSize, cellSize, cellSize);
       }
-
+  
       iw++;
     }
-
+  
     ih++;
   }
 }
@@ -124,7 +124,7 @@ function createNext(){
   
     // iterate through the widths
     while (iw < width) {
-      newState[ih][iw] = logic(state[ih][iw], getSurroundings(ih, iw, state[ih][iw]));
+      newState[ih][iw] = logic(state[ih][iw], getSurroundings(ih, iw));
 
       iw++;
     }
@@ -141,13 +141,13 @@ function createNext(){
 
   // if the toggle is active, run again
   if ($('#status').hasClass('active')) {
-    // pause for a ms to keep browser from freezing up
+    // pause for a set time to keep the speed in check
     timer = setTimeout("createNext();", speed);
   }
 }
 
 // for each surrounding cell, increment liveCount, then push that into the array
-function getSurroundings(x, y, value){
+function getSurroundings(x, y){
   liveCount = 0;
 
   // next
