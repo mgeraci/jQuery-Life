@@ -1,16 +1,23 @@
+// global variables
 var width = 200;// number of cells
 var height = 150;// number of cells
 var cellSize = 6;// size of each cell
-var liveCount;// numer of cells alive around a cell, used in logic function
 var state = [];// holds the state of the game
-var timer;// a settimeout for ticking to the next generation
-var speed = 80;// speed in ms for the settimeout
+var speed = 70;// speed in ms for the settimeout
+var liveCount, timer, c, canvas, tool;// number of cells alive around a cell, settimeout for ticking to the next generation, the container, the canvas context, drawing or erasing
+
+// coordinate variables
+mvX = 0;
+mvY = 0;
+lastX = 0;
+lastY = 0;
 
 // run these functions on load
 $(function(){
   buttons();
   randomize();// initial randomization
   render(state);// initial render
+  drawHandler();
 });
 
 // control the running of the game
@@ -76,8 +83,8 @@ function randomize(){
 // loop through the array and display it
 function render(lifeArray){
   // get the canvas (the html element, and set the 2-dimensional context)
-  var c = $('#container');
-  var canvas = c[0].getContext('2d');
+  c = $('#container');
+  canvas = c[0].getContext('2d');
 
   // set the canvas size
   c[0].width = width * cellSize;
@@ -241,5 +248,73 @@ function logic(current, liveCount) {
     } else {
       return 0;
     }
+  }
+}
+
+function drawHandler(){
+  // are we currently dragging?
+  clicked = false;
+
+  // get the offset of the canvas element
+  cOff = c.offset();
+
+  // on mousemove check coordinates
+  c.mousemove(function(e){
+    checkCoords(e);
+  });
+
+  // on mousedown, check coordinates and set a clicked flag
+  $('body').mousedown(function(ev){
+    clicked = true;
+
+    // get the initial coordinate
+    getCoords(ev);
+
+    // if it's within the range
+    if (mvX < width && mvY < height && mvX > 0 && mvY > 0) {
+      draw(mvX, mvY);
+    }
+  }).mouseup(function(){
+    clicked = false;
+  });
+}
+
+function checkCoords(ev){
+  // get the current coordinates in the canvas
+  getCoords(ev);
+
+  // if it's within the range and different from the last coordinate
+  if ( (mvX < width && mvY < height) && (mvX != lastX || mvY != lastY) ) {
+    // set the "last" variables to the current
+    lastX = mvX;
+    lastY = mvY;
+
+    if (clicked) {
+      draw(mvX, mvY);
+    }
+  }
+}
+
+function getCoords(ev){
+  mvX = Math.floor((ev.pageX - cOff.left) / cellSize);
+  mvY = Math.floor((ev.pageY - cOff.top) / cellSize);
+}
+
+function draw(x, y){
+  // set the current tool
+  tool = $('input[name=tool]:checked').val();
+
+  if (tool == 'draw') {
+    // fill the current cell
+    canvas.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
+
+    // set it as filled in the state
+    state[y][x] = 1;
+  } else if (tool == 'erase') {
+    // clear the current cell
+    canvas.clearRect(x * cellSize, y * cellSize, cellSize, cellSize);
+
+    // set it as empty in the state
+    delete state[y][x];
   }
 }
