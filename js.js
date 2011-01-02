@@ -28,7 +28,7 @@ function buttons(){
     } else {
       $(this).html('stop');
     }
-  
+
     $(this).toggleClass('active');
 
     createNext();
@@ -37,13 +37,31 @@ function buttons(){
   });
   
   $('#reset').click(function(){
-    $('#status').removeClass('active').html('start');
-    $('#count').html(0);
+    // stop and reset button
+    stopGame();
 
-    clearTimeout(timer);// stop the current iteration
     randomize();// randomize a new grid
     render(state);// render the new grid
   });
+
+  $('#clear').click(function(){
+    stopGame();
+
+    // remove everything from the canvas
+    canvas.clearRect(0, 0, width * cellSize, height * cellSize);
+
+    // remove everything from state
+    for (i = 0; i < height; i++){
+      state[i] = [];
+    }
+  });
+}
+
+function stopGame(){
+  // stop the game
+  $('#status').removeClass('active').html('start');
+  $('#count').html(0);
+  clearTimeout(timer);// stop the current iteration
 }
 
 // creates nested array structure filled randomly
