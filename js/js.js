@@ -202,9 +202,6 @@ function createNext(){
     ih++;
   }
 
-  // print the hash
-  // $('body').append(prettyPrint(newState));
-
   state = newState;
 
   // render the new state
