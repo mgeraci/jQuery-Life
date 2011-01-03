@@ -16,6 +16,12 @@
 
       .cell0{background: #fff;}
       .cell1{background: #000;}
+      
+      canvas{
+        position: absolute;
+        top: 30;
+        left: 10;
+      }
     </style>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
     <script type="text/javascript" src="/pretty.js"></script>
@@ -25,11 +31,13 @@
     <a id="status" href="#">start</a>&nbsp;&nbsp;&nbsp;
     <a id="reset" href="#">randomize</a>&nbsp;&nbsp;&nbsp;
     <a id="clear" href="#">clear</a>&nbsp;&nbsp;&nbsp;
+    <a id="bounce" href="#">bounce</a>&nbsp;&nbsp;&nbsp;
     <input type="radio" name="tool" value="draw"> draw<br>&nbsp;
     <input type="radio" name="tool" value="erase"> erase<br>
     <span id="count">0</span> generations
     <br>
     <br>
+    <canvas id="grid" width="300" height="300"></canvas>
     <canvas id="container" width="300" height="300"></canvas>
     <div id="json"></div>
   </body>

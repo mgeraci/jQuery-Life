@@ -1,6 +1,6 @@
 // global variables
-var width = 200;// number of cells
-var height = 150;// number of cells
+var width = 100;// number of cells
+var height = 80;// number of cells
 var cellSize = 6;// size of each cell
 var state = [];// holds the state of the game
 var speed = 70;// speed in ms for the settimeout
@@ -50,15 +50,40 @@ function buttons(){
     // remove everything from the canvas
     canvas.clearRect(0, 0, width * cellSize, height * cellSize);
 
+    // make the grid
+    makeGrid();
+
     // remove everything from state
     for (i = 0; i < height; i++){
       state[i] = [];
     }
   });
+
+  $('#bounce').click(function(){
+    $('body').append('[');
+    ih = 0;
+
+    // iterate through the heights
+    while (ih < height) {
+      // width count (set to zero in each row)
+      iw = 0;
+
+      // iterate through the widths
+      while (iw < width) {
+        if (state[ih][iw]) {
+          $('body').append('[' + ih + ',' + iw + '],');
+        }
+
+        iw++;
+      }
+      ih++;
+    }
+    $('body').append(']');
+  });
 }
 
+// stop the game
 function stopGame(){
-  // stop the game
   $('#status').removeClass('active').html('start');
   $('#count').html(0);
   clearTimeout(timer);// stop the current iteration
@@ -89,46 +114,66 @@ function randomize(){
     }
     ih++;
   }
+}
 
-  // make a glider to test wrapping
-  // state[49][20] = 1;
-  // state[49][21] = 1;
-  // state[49][22] = 1;
-  // state[48][22] = 1;
-  // state[47][21] = 1;
+// makes a background grid
+function makeGrid(){
+  // get the grid canvas
+  grid = $('#grid');
+  cGrid = grid[0].getContext('2d');
+
+  grid[0].width = width * cellSize;
+  grid[0].height = height * cellSize;
+
+  // vertical lines
+  for (var x = 0.5; x < width * cellSize; x += cellSize) {
+    cGrid.moveTo(x, 0);
+    cGrid.lineTo(x, height * cellSize);
+  }
+
+  // horizontal lines
+  for (var y = 0.5; y < height * cellSize; y += cellSize) {
+    cGrid.moveTo(0, y);
+    cGrid.lineTo(width * cellSize, y);
+  }
+
+  cGrid.strokeStyle = "#ccc";
+  cGrid.stroke();
 }
 
 // loop through the array and display it
 function render(lifeArray){
-  // get the canvas (the html element, and set the 2-dimensional context)
+  // get the drawing canvas (the html element, and set the 2-dimensional context)
   c = $('#container');
   canvas = c[0].getContext('2d');
 
-  // set the canvas size
+  // size the two canvases
   c[0].width = width * cellSize;
   c[0].height = height * cellSize;
 
   // clear the canvas
   canvas.clearRect(0, 0, width * cellSize, height * cellSize);
 
+  makeGrid();
+
   // height count
   ih = 0;
-  
+
   // iterate through the heights
   while (ih < height) {
     // width count (set to zero in each row)
     iw = 0;
-  
+
     // iterate through the widths
     while (iw < width) {
       // set the value
       if (lifeArray[ih][iw]) {
         canvas.fillRect(iw * cellSize, ih * cellSize, cellSize, cellSize);
       }
-  
+
       iw++;
     }
-  
+
     ih++;
   }
 }
