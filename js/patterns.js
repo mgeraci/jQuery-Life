@@ -3,7 +3,7 @@ $(function(){
   normalize();
 });
 
-a = patterns[6].data;
+a = patterns[patterns.length - 1].data;
 
 // normalize an array of coordinates to 0,0
 function max(){
@@ -24,7 +24,7 @@ function max(){
   maxX = Math.max.apply(Math, x) + 1;
   maxY = Math.max.apply(Math, y) + 1;
 
-  $('body').append('width: ' + maxX + '<br>height: ' + maxY + '<br>');
+  $('body').append('width: ' + maxY + '<br>height: ' + maxX + '<br>');
 }
 
 // normalize an array of coordinates to 0,0

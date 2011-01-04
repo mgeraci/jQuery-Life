@@ -1,7 +1,7 @@
 // global variables
 var width = 100;// number of cells
-var height = 80;// number of cells
-var cellSize = 8;// size of each cell
+var height = 100;// number of cells
+var cellSize = 12;// size of each cell
 var state = [];// holds the state of the game
 var speed = 70;// speed in ms for the settimeout
 var liveCount, timer, c, canvas, tool;// number of cells alive around a cell, settimeout for ticking to the next generation, the container, the canvas context, drawing or erasing
@@ -94,6 +94,10 @@ function patternsFunc(){
   $('#pattern').change(function(){
     // if it's not pattern 0 (load a pattern)
     if ($(this).val() > 0) {
+      // stop and reset
+      stopGame();
+
+      // get the selected pattern object
       pattern = patterns[$(this).val()];
 
       // clear the state
