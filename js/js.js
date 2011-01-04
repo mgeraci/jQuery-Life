@@ -1,7 +1,7 @@
 // global variables
 var width = 100;// number of cells
 var height = 80;// number of cells
-var cellSize = 6;// size of each cell
+var cellSize = 8;// size of each cell
 var state = [];// holds the state of the game
 var speed = 70;// speed in ms for the settimeout
 var liveCount, timer, c, canvas, tool;// number of cells alive around a cell, settimeout for ticking to the next generation, the container, the canvas context, drawing or erasing
@@ -15,6 +15,7 @@ lastY = 0;
 // run these functions on load
 $(function(){
   buttons();
+  patternsFunc();
   randomize();// initial randomization
   render(state);// initial render
   drawHandler();
@@ -23,10 +24,10 @@ $(function(){
 // control the running of the game
 function buttons(){
   $('#status').click(function(){
-    if ($(this).html() == 'stop'){
+    if ($(this).html() == 'pause'){
       $(this).html('start');
     } else {
-      $(this).html('stop');
+      $(this).html('pause');
     }
 
     $(this).toggleClass('active');
@@ -79,6 +80,58 @@ function buttons(){
       ih++;
     }
     $('body').append(']');
+  });
+}
+
+// populate patterns, handle pattern loading
+function patternsFunc(){
+  // populate the pattersn dropdown
+  for (i=0; i < patterns.length; i++) {
+    $('#pattern').append('<option value="' + i + '">' + patterns[i].name + '</option>');
+  }
+
+  // load up patterns on select change
+  $('#pattern').change(function(){
+    // if it's not pattern 0 (load a pattern)
+    if ($(this).val() > 0) {
+      pattern = patterns[$(this).val()];
+
+      // clear the state
+      state = [];
+
+      // get the offset for centering
+      offW = Math.round(width / 2 - pattern.width / 2);
+      offH = Math.round(height / 2 - pattern.height / 2);
+
+      // for each coordinate in the pattern's dataset
+      $.each(pattern.data, function(index, value){
+        // set the values with offset
+        x = value[0] + offH;
+        y = value[1] + offW;
+
+        // create a subarray for the row if it doesn't exist
+        if (!state[x]) {
+          state[x] = [];
+        }
+
+        // set the active value to 1
+        state[x][y] = 1;
+      });
+
+      // iterate through the heights and add any missing arrays (render breaks on empty lines)
+      ih = 0;
+
+      // iterate through the heights
+      while (ih < height) {
+        if (!state[ih]) {
+          state[ih] = [];
+        }
+
+        ih++;
+      }
+
+      render(state);
+    }
   });
 }
 
