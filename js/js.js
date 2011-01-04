@@ -1,7 +1,7 @@
 // global variables
-var width = 100;// number of cells
+var width = 150;// number of cells
 var height = 100;// number of cells
-var cellSize = 12;// size of each cell
+var cellSize = 6;// size of each cell
 var state = [];// holds the state of the game
 var speed = 70;// speed in ms for the settimeout
 var liveCount, timer, c, canvas, tool;// number of cells alive around a cell, settimeout for ticking to the next generation, the container, the canvas context, drawing or erasing
