@@ -2,41 +2,18 @@
 <html>
   <head>
     <title>jQuery Life - Michael P. Geraci</title>
-    <style>
-      #container{
-        float: left;
-        border: 1px solid #000;
-      }
-
-      #container div{
-        float: left;
-        display: block;
-        overflow: hidden;
-      }
-
-      .cell0{background: #fff;}
-      .cell1{background: #000;}
-      
-      canvas{
-        position: absolute;
-        top: 30;
-        left: 10;
-      }
-    </style>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
     <script type="text/javascript" src="/js/json.js"></script>
     <script type="text/javascript" src="/js/patternsData.js"></script>
-    <script type="text/javascript" src="/js/pretty.js"></script>
-    <script type="text/javascript" src="/js/js.js"></script>
+    <script type="text/javascript" src="/js/application.js"></script>
   </head>
   <body>
     <a id="status" href="#">start</a>&nbsp;&nbsp;&nbsp;
     <a id="reset" href="#">randomize</a>&nbsp;&nbsp;&nbsp;
     <a id="clear" href="#">clear</a>&nbsp;&nbsp;&nbsp;
     <a id="bounce" href="#">bounce</a>&nbsp;&nbsp;&nbsp;
-    <input type="radio" name="tool" value="draw"> draw<br>&nbsp;
-    <input type="radio" name="tool" value="erase"> erase<br>
-    &nbsp;&nbsp;<select id="pattern"></select>
+    <select id="pattern"></select>
     <span id="count">0</span> generations
     <br>
     <br>

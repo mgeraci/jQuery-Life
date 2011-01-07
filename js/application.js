@@ -368,6 +368,7 @@ function logic(current, liveCount) {
   }
 }
 
+// the main handler for drawing/erasing
 function drawHandler(){
   // are we currently dragging?
   clicked = false;
@@ -389,6 +390,14 @@ function drawHandler(){
 
     // if it's within the range
     if (mvX < width && mvY < height && mvX > 0 && mvY > 0) {
+      // set the tool to match what you just clicked on
+      // ie - if you clicked on a blank, you want to start drawing
+      if (state[mvY][mvX]) {
+        tool = 'erase';
+      } else {
+        tool = 'draw';
+      }
+
       draw(mvX, mvY);
     }
   }).mouseup(function(){
@@ -396,6 +405,7 @@ function drawHandler(){
   });
 }
 
+// sees if the current coordinates are on the canvas
 function checkCoords(ev){
   // get the current coordinates in the canvas
   getCoords(ev);
@@ -412,15 +422,13 @@ function checkCoords(ev){
   }
 }
 
+// convert mouse position to cell number
 function getCoords(ev){
   mvX = Math.floor((ev.pageX - cOff.left) / cellSize);
   mvY = Math.floor((ev.pageY - cOff.top) / cellSize);
 }
 
 function draw(x, y){
-  // set the current tool
-  tool = $('input[name=tool]:checked').val();
-
   if (tool == 'draw') {
     // fill the current cell
     canvas.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);

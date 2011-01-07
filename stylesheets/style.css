@@ -1,0 +1,20 @@
+#container{
+  float: left;
+  border: 1px solid #000;
+}
+
+#container div{
+  float: left;
+  display: block;
+  overflow: hidden;
+}
+
+.cell0{background: #fff;}
+.cell1{background: #000;}
+
+canvas{
+  position: absolute;
+  top: 30;
+  left: 10;
+  cursor: crosshair !important;
+}
