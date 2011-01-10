@@ -2,23 +2,37 @@
 <html>
   <head>
     <title>jQuery Life - Michael P. Geraci</title>
-    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+    <link rel='stylesheet/less' href='/stylesheets/style.less' type='text/css' />
+    <script src='/js/less.min.js'></script>
+    <script type='text/javascript' charset='utf-8'>
+        less.env = 'development';
+        less.watch();
+    </script>
+
+    <!-- <link rel="stylesheet" type="text/css" href="/stylesheets/style.css"> -->
+
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
     <script type="text/javascript" src="/js/json.js"></script>
     <script type="text/javascript" src="/js/patternsData.js"></script>
     <script type="text/javascript" src="/js/application.js"></script>
   </head>
   <body>
-    <a id="status" href="#">start</a>&nbsp;&nbsp;&nbsp;
-    <a id="reset" href="#">randomize</a>&nbsp;&nbsp;&nbsp;
-    <a id="clear" href="#">clear</a>&nbsp;&nbsp;&nbsp;
-    <a id="bounce" href="#">bounce</a>&nbsp;&nbsp;&nbsp;
-    <select id="pattern"></select>
-    <span id="count">0</span> generations
-    <br>
-    <br>
-    <canvas id="grid" width="300" height="300"></canvas>
-    <canvas id="container" width="300" height="300"></canvas>
-    <div id="json"></div>
+    <div id="background">
+      <div id="centered">
+        <img id="logo" width="808" height="379" src="/images/logo.png">
+        <div id="tools">
+          <a id="status" href="#">start</a>&nbsp;&nbsp;&nbsp;
+          <a id="reset" href="#">randomize</a>&nbsp;&nbsp;&nbsp;
+          <a id="clear" href="#">clear</a>&nbsp;&nbsp;&nbsp;
+          <a id="bounce" href="#">bounce</a>&nbsp;&nbsp;&nbsp;
+          <select id="pattern"></select>
+          <span id="count">0</span> generations
+        </div>
+        <div id="canvases">
+          <canvas id="grid" width="300" height="300"></canvas>
+          <canvas id="container" width="300" height="300"></canvas>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

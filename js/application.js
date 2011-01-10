@@ -182,6 +182,10 @@ function makeGrid(){
   grid[0].width = width * cellSize;
   grid[0].height = height * cellSize;
 
+  // fill the background color
+  cGrid.fillStyle = 'rgb(255,255,255)';
+  cGrid.fillRect(0, 0, width * cellSize, height * cellSize);
+
   // vertical lines
   for (var x = 0.5; x < width * cellSize; x += cellSize) {
     cGrid.moveTo(x, 0);
