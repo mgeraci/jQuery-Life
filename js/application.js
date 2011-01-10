@@ -5,6 +5,9 @@ var cellSize = 6;// size of each cell
 var state = [];// holds the state of the game
 var speed = 70;// speed in ms for the settimeout
 var liveCount, timer, c, canvas, tool;// number of cells alive around a cell, settimeout for ticking to the next generation, the container, the canvas context, drawing or erasing
+var background = '#E4DD98';
+var gridColor = '#9B9365';
+var cell = '#383302';
 
 // coordinate variables
 mvX = 0;
@@ -183,7 +186,7 @@ function makeGrid(){
   grid[0].height = height * cellSize;
 
   // fill the background color
-  cGrid.fillStyle = 'rgb(255,255,255)';
+  cGrid.fillStyle = background;
   cGrid.fillRect(0, 0, width * cellSize, height * cellSize);
 
   // vertical lines
@@ -198,7 +201,7 @@ function makeGrid(){
     cGrid.lineTo(width * cellSize, y);
   }
 
-  cGrid.strokeStyle = "#ccc";
+  cGrid.strokeStyle = gridColor;
   cGrid.stroke();
 }
 
@@ -215,6 +218,10 @@ function render(lifeArray){
   // clear the canvas
   canvas.clearRect(0, 0, width * cellSize, height * cellSize);
 
+  // set the fillstyle
+  canvas.fillStyle = cell;
+
+  // create the grid
   makeGrid();
 
   // height count
