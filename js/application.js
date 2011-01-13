@@ -182,8 +182,12 @@ function makeGrid(){
   grid = $('#grid');
   cGrid = grid[0].getContext('2d');
 
+  // set the canvas size
   grid[0].width = width * cellSize;
   grid[0].height = height * cellSize;
+
+  // set the canvas wrapper size
+  $('#canvases').css({'width': width * cellSize, 'height': height * cellSize});
 
   // fill the background color
   cGrid.fillStyle = background;
