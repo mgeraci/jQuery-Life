@@ -62,28 +62,6 @@ function buttons(){
       state[i] = [];
     }
   });
-
-  $('#bounce').click(function(){
-    $('body').append('[');
-    ih = 0;
-
-    // iterate through the heights
-    while (ih < height) {
-      // width count (set to zero in each row)
-      iw = 0;
-
-      // iterate through the widths
-      while (iw < width) {
-        if (state[ih][iw]) {
-          $('body').append('[' + ih + ',' + iw + '],');
-        }
-
-        iw++;
-      }
-      ih++;
-    }
-    $('body').append(']');
-  });
 }
 
 // populate patterns, handle pattern loading

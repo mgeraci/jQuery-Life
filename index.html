@@ -8,9 +8,6 @@
         less.env = 'development';
         less.watch();
     </script>
-
-    <!-- <link rel="stylesheet" type="text/css" href="/stylesheets/style.css"> -->
-
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
     <script type="text/javascript" src="/js/json.js"></script>
     <script type="text/javascript" src="/js/patternsData.js"></script>
@@ -18,15 +15,15 @@
   </head>
   <body>
     <div id="background">
-      <div id="centered">
+      <div class="centered">
         <img id="logo" width="623" height="310" src="/images/logo.png">
         <div id="tools">
           <a id="status" href="#">start</a>&nbsp;&nbsp;&nbsp;
           <a id="reset" href="#">randomize</a>&nbsp;&nbsp;&nbsp;
           <a id="clear" href="#">clear</a>&nbsp;&nbsp;&nbsp;
-          <a id="bounce" href="#">bounce</a>&nbsp;&nbsp;&nbsp;
           <select id="pattern"></select>
-          <span id="count">0</span> generations
+          <span id="count">0</span> generations&nbsp;&nbsp;&nbsp;
+          <span id="drawNote">click on the canvas to draw/erase</span>
         </div>
         <div id="canvases">
           <canvas id="grid" width="300" height="300"></canvas>
@@ -35,7 +32,11 @@
       </div>
     </div>
     <div id="footer">
-      booter gooter foarfmr esfes footer &copy; 2011
+      <div class="centered">
+        Hey there, I'm Michael P. Geraci, a New York based web designer and U/X guy. I made this as a winter break project over new years 2011. It was created with jQuery and Canvas.
+        <br>
+        <br>You can contact me at <a href="mailto:mgeraci@gmail.com">&#109;&#103;&#101;&#114;&#97;&#99;&#105;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a>, <a href="http://www.michaelgeraci.com">see my other work</a>, or <a href="http://github.com/mgeraci/jQuery-Life">view the source at github</a>.
+      </div>
     </div>
   </body>
 </html>
