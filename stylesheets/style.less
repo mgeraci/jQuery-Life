@@ -53,10 +53,64 @@ body, html{
   margin: 10px 0 0 90px;
 }
 
+@toolsLeft: 50px;
+
 // toolbar
 #tools{
   .floatClear;
-  margin: 20px 0 20px 100px;
+  margin: 20px 0 0 25px;
+  background: rgba(170,170,170,1);
+  padding: 10px 0 10px @toolsLeft;
+  width: 901px - @toolsLeft;
+}
+
+.sprite{
+  display: block;
+  overflow: hidden;
+  line-height: 500px;
+  float: left;
+}
+
+.button{
+  float: left;
+  padding: 4px;
+}
+
+// controls
+#status{
+  span{
+    .sprite;
+    width: 13px;
+    height: 17px;
+    background: url(/images/controls.png) 0 0 no-repeat;
+  }
+}
+
+#status{
+  span.active{
+    .sprite;
+    width: 12px;
+    height: 17px;
+    background: url(/images/controls.png) -13px 0 no-repeat;
+  }
+}
+
+#reset{
+  span{
+    .sprite;
+    width: 17px;
+    height: 17px;
+    background: url(/images/controls.png) -24px 0 no-repeat;
+  }
+}
+
+#clear{
+  span{
+    .sprite;
+    width: 22px;
+    height: 17px;
+    background: url(/images/controls.png) -40px 0 no-repeat;
+  }
 }
 
 // holds the two canvases, has background color
@@ -67,10 +121,6 @@ body, html{
   background: #fff;
   border: 1px solid #787878;
   border-width: 0 1px 1px 0;
-
-  -moz-box-shadow: 0px 0px 5px #000; /* FF3.5+ */
-  -webkit-box-shadow: 0px 0px 5px #000; /* Saf3.0+, Chrome */
-  box-shadow: 0px 0px 5px #000; /* Opera 10.5, IE9 */
 }
 
 // general canvas style to layer the two
@@ -110,6 +160,7 @@ canvas{
   margin: 30px 0 0 0;
   padding: 30px 0 15px 0;
   color: #000;
+  letter-spacing: 0.04em;
   background: rgba(255,255,255,0.3);
 
   -moz-box-shadow: 0px 0px 5px #000; /* FF3.5+ */

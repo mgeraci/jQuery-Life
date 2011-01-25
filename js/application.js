@@ -26,9 +26,9 @@ $(function(){
 
 // control the running of the game
 function buttons(){
-  $('#status').click(function(){
+  $('#status span').click(function(){
     if ($(this).html() == 'pause'){
-      $(this).html('start');
+      $(this).html('play');
     } else {
       $(this).html('pause');
     }
@@ -261,7 +261,7 @@ function createNext(){
   $('#count').html(parseInt($('#count').html(), 10) + 1);
 
   // if the toggle is active, run again
-  if ($('#status').hasClass('active')) {
+  if ($('#status span').hasClass('active')) {
     // pause for a set time to keep the speed in check
     timer = setTimeout("createNext();", speed);
   }
