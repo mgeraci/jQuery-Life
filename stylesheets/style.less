@@ -12,6 +12,10 @@
 body{
   font-family: helvetica, arial, sans-serif;
   text-rendering: optimizeLegibility; // some browsers support kerning and ligatures
+
+  // disable text selection. while certainly not optimal to disable selection on entire site, it's more annoying to highlight page elements while drawing
+  -webkit-user-select: none;
+  -moz-user-select: none;
 }
 
 .floatClear{

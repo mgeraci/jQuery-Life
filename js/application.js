@@ -122,7 +122,7 @@ function patternsFunc(){
 
 // stop the game
 function stopGame(){
-  $('#status').removeClass('active').html('start');
+  $('#status').children('span').removeClass('active').html('play');
   $('#count').html(0);
   clearTimeout(timer);// stop the current iteration
 }

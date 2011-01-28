@@ -8,6 +8,8 @@
 body {
   font-family: helvetica, arial, sans-serif;
   text-rendering: optimizeLegibility;
+  -webkit-user-select: none;
+  -moz-user-select: none;
 }
 .floatClear {
   float: left;
