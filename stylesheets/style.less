@@ -63,7 +63,6 @@ body, html{
 #tools{
   .floatClear;
   margin: 20px 0 0 25px;
-  background: rgba(170,170,170,1);
   padding: 10px 0 10px @toolsLeft;
   width: 901px - @toolsLeft;
 }
@@ -80,40 +79,47 @@ body, html{
   padding: 4px;
 }
 
+@playWidth: 20px;
+@pauseWidth: 20px;
+@resetWidth: 25px;
+@eraseWidth: 35px;
+
 // controls
 #status{
+  // play
   span{
     .sprite;
-    width: 13px;
-    height: 17px;
+    width: @playWidth;
+    height: 25px;
     background: url(/images/controls.png) 0 0 no-repeat;
   }
 }
 
 #status{
+  // pause
   span.active{
     .sprite;
-    width: 12px;
-    height: 17px;
-    background: url(/images/controls.png) -13px 0 no-repeat;
+    width: @pauseWidth;
+    height: 25px;
+    background: url(/images/controls.png) @playWidth * -1 0 no-repeat;
   }
 }
 
 #reset{
   span{
     .sprite;
-    width: 17px;
-    height: 17px;
-    background: url(/images/controls.png) -24px 0 no-repeat;
+    width: @resetWidth;
+    height: 25px;
+    background: url(/images/controls.png) (@playWidth + @pauseWidth) * -1 0 no-repeat;
   }
 }
 
 #clear{
   span{
     .sprite;
-    width: 22px;
-    height: 17px;
-    background: url(/images/controls.png) -40px 0 no-repeat;
+    width: @eraseWidth;
+    height: 25px;
+    background: url(/images/controls.png) (@playWidth + @pauseWidth + @resetWidth) * -1 0 no-repeat;
   }
 }
 
