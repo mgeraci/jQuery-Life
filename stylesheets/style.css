@@ -45,6 +45,8 @@ body, html {
   margin: 20px 0 0 25px;
   padding: 10px 0 10px 50px;
   width: 851px;
+  background: rgba(255, 255, 255, 0.3);
+  text-shadow: rgba(0, 0, 0, 0.2) -1px 0, rgba(0, 0, 0, 0.2) 0 -1px, rgba(255, 255, 255, 0.2) 0 1px;
 }
 .sprite {
   display: block;
@@ -54,7 +56,39 @@ body, html {
 }
 .button {
   float: left;
-  padding: 4px;
+  padding: 7px;
+  background: #9adbe1;
+  background: -moz-linear-gradient(top, #abecf2, #abecf2 46%, #88c9cf 54%, #88c9cf);
+  background: -webkit-gradient(linear, left top, left bottom, from(#abecf2), color-stop(0.46, #abecf2), color-stop(0.54, #88c9cf), to(#88c9cf));
+  filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#abecf2, endColorstr=#88c9cf)";
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#abecf2, endColorstr=#88c9cf)";
+}
+.button:hover {
+  color: #000000;
+  background: #86c7cd;
+  background: -moz-linear-gradient(top, #97d8de, #97d8de 46%, #74b5bb 54%, #74b5bb);
+  background: -webkit-gradient(linear, left top, left bottom, from(#97d8de), color-stop(0.46, #97d8de), color-stop(0.54, #74b5bb), to(#74b5bb));
+  filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#97d8de, endColorstr=#74b5bb)";
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#97d8de, endColorstr=#74b5bb)";
+}
+.button:active {
+  color: #000000;
+  background: #72b3b9;
+  background: -moz-linear-gradient(top, #83c4ca, #83c4ca 46%, #60a1a7 54%, #60a1a7);
+  background: -webkit-gradient(linear, left top, left bottom, from(#83c4ca), color-stop(0.46, #83c4ca), color-stop(0.54, #60a1a7), to(#60a1a7));
+  filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#83c4ca, endColorstr=#60a1a7)";
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#83c4ca, endColorstr=#60a1a7)";
+}
+#status {
+  -moz-border-radius-topleft: 8px;
+  -moz-border-radius-bottomleftt: 8px;
+  -webkit-border-top-left-radius: 8px;
+  -webkit-border-bottom-left-radius: 8px;
+  border-top-left-radius: 8px;
+  border-bottom-left: 8px;
+  padding: 7px 7px 7px 12px;
+  border: 2px solid #56979d;
+  border-width: 2px 0 2px 2px;
 }
 #status span {
   display: block;
@@ -74,6 +108,10 @@ body, html {
   height: 25px;
   background: url(/images/controls.png) -20px 0 no-repeat;
 }
+#reset {
+  border: 2px solid #56979d;
+  border-width: 2px 0;
+}
 #reset span {
   display: block;
   overflow: hidden;
@@ -83,14 +121,31 @@ body, html {
   height: 25px;
   background: url(/images/controls.png) -40px 0 no-repeat;
 }
+#clear {
+  -moz-border-radius-toprigh: 8px;
+  -moz-border-radius-bottomright: 8px;
+  -webkit-border-top-right-radius: 8px;
+  -webkit-border-bottom-right-radius: 8px;
+  border-top-right-radius: 8px;
+  border-bottom-right: 8px;
+  padding: 7px 7px 7px 7px;
+  border: 2px solid #56979d;
+  border-width: 2px 2px 2px 0;
+}
 #clear span {
   display: block;
   overflow: hidden;
   line-height: 500px;
   float: left;
-  width: 35px;
+  width: 29px;
   height: 25px;
   background: url(/images/controls.png) -65px 0 no-repeat;
+}
+#drawNote {
+  color: #777;
+  font-style: oblique;
+  letter-spacing: 0.07em;
+  text-shadow: rgba(0, 0, 0, 0.1) -1px 0, rgba(0, 0, 0, 0.1) 0 -1px, rgba(255, 255, 255, 0.1) 0 1px;
 }
 #canvases {
   float: left;

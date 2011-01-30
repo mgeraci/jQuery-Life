@@ -65,6 +65,8 @@ body, html{
   margin: 20px 0 0 25px;
   padding: 10px 0 10px @toolsLeft;
   width: 901px - @toolsLeft;
+  background: rgba(255,255,255,0.3);
+  text-shadow: rgba(0,0,0,0.2) -1px 0, rgba(0,0,0,0.2) 0 -1px, rgba(255,255,255,0.2) 0 1px;
 }
 
 .sprite{
@@ -74,18 +76,76 @@ body, html{
   float: left;
 }
 
+@buttonPadding: 7px;
+
+// master button color - change this to change all the colors
+@buttonColor: #88C9CF;
+
+// slave colors
+@defaultStart: @buttonColor + 35%;
+@defaultEnd: @buttonColor;
+@borderColor: @buttonColor - 50%;
+
+@color: #000;
+
 .button{
   float: left;
-  padding: 4px;
+  padding: @buttonPadding;
+
+  background: ((@defaultStart + @defaultEnd) / 2); // Non CSS3 browsers
+  background: -moz-linear-gradient(top,  @defaultStart, @defaultStart 46%, @defaultEnd 54%, @defaultEnd); // FF 3.6+
+  background: -webkit-gradient(linear, left top, left bottom, from(@defaultStart), color-stop(0.46, @defaultStart), color-stop(0.54, @defaultEnd), to(@defaultEnd)); // Safari 4+, Chrome
+  filter: %("progid:DXImageTransform.Microsoft.gradient(startColorstr=%d, endColorstr=%d)", @defaultStart, @defaultEnd); // IE6 & 7
+  -ms-filter: %("progid:DXImageTransform.Microsoft.gradient(startColorstr=%d, endColorstr=%d)", @defaultStart, @defaultEnd); // IE8
+}
+
+.button:hover{
+  color: @color;
+
+  @start: @defaultStart - 20%;
+  @end: @defaultEnd - 20%;
+
+  background: ((@start + @end) / 2); // Non CSS3 browsers
+  background: -moz-linear-gradient(top, @start, @start 46%, @end 54%, @end); // FF 3.6+
+  background: -webkit-gradient(linear, left top, left bottom, from(@start), color-stop(0.46, @start), color-stop(0.54, @end), to(@end)); // Safari 4+, Chrome
+  filter: %("progid:DXImageTransform.Microsoft.gradient(startColorstr=%d, endColorstr=%d)", @start, @end); // IE6 & 7
+  -ms-filter: %("progid:DXImageTransform.Microsoft.gradient(startColorstr=%d, endColorstr=%d)", @start, @end); // IE8
+}
+
+.button:active{
+  color: @color;
+
+  @start: @defaultStart - 40%;
+  @end: @defaultEnd - 40%;
+
+  background: ((@start + @end) / 2); // Non CSS3 browsers
+  background: -moz-linear-gradient(top, @start, @start 46%, @end 54%, @end); // FF 3.6+
+  background: -webkit-gradient(linear, left top, left bottom, from(@start), color-stop(0.46, @start), color-stop(0.54, @end), to(@end)); // Safari 4+, Chrome
+  filter: %("progid:DXImageTransform.Microsoft.gradient(startColorstr=%d, endColorstr=%d)", @start, @end); // IE6 & 7
+  -ms-filter: %("progid:DXImageTransform.Microsoft.gradient(startColorstr=%d, endColorstr=%d)", @start, @end); // IE8
 }
 
 @playWidth: 20px;
 @pauseWidth: 20px;
 @resetWidth: 25px;
-@eraseWidth: 35px;
+@eraseWidth: 29px;
 
 // controls
 #status{
+  // border radius
+  @radius: 8px;
+  -moz-border-radius-topleft: @radius; // FF1+
+  -moz-border-radius-bottomleftt: @radius; // FF1+
+  -webkit-border-top-left-radius: @radius; // Saf3-4
+  -webkit-border-bottom-left-radius: @radius; // Saf3-4
+  border-top-left-radius: @radius; // Opera 10.5, IE9, Saf5, Chrome
+  border-bottom-left: @radius; // Opera 10.5, IE9, Saf5, Chrome
+
+  padding: @buttonPadding @buttonPadding @buttonPadding 12px;
+
+  border: 2px solid @borderColor;
+  border-width: 2px 0 2px 2px;
+
   // play
   span{
     .sprite;
@@ -93,9 +153,7 @@ body, html{
     height: 25px;
     background: url(/images/controls.png) 0 0 no-repeat;
   }
-}
 
-#status{
   // pause
   span.active{
     .sprite;
@@ -106,6 +164,9 @@ body, html{
 }
 
 #reset{
+  border: 2px solid @borderColor;
+  border-width: 2px 0;
+
   span{
     .sprite;
     width: @resetWidth;
@@ -115,12 +176,34 @@ body, html{
 }
 
 #clear{
+  // border radius
+  @radius: 8px;
+  -moz-border-radius-toprigh: @radius; // FF1+
+  -moz-border-radius-bottomright: @radius; // FF1+
+  -webkit-border-top-right-radius: @radius; // Saf3-4
+  -webkit-border-bottom-right-radius: @radius; // Saf3-4
+  border-top-right-radius: @radius; // Opera 10.5, IE9, Saf5, Chrome
+  border-bottom-right: @radius; // Opera 10.5, IE9, Saf5, Chrome
+
+  padding: @buttonPadding 7px @buttonPadding @buttonPadding;
+
+  border: 2px solid @borderColor;
+  border-width: 2px 2px 2px 0;
+
   span{
     .sprite;
     width: @eraseWidth;
     height: 25px;
     background: url(/images/controls.png) (@playWidth + @pauseWidth + @resetWidth) * -1 0 no-repeat;
   }
+}
+
+// click on canvas to draw/erase
+#drawNote{
+  color: #777;
+  font-style: oblique;
+  letter-spacing: 0.07em;
+  text-shadow: rgba(0,0,0,0.1) -1px 0, rgba(0,0,0,0.1) 0 -1px, rgba(255,255,255,0.1) 0 1px;
 }
 
 // holds the two canvases, has background color
