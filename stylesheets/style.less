@@ -139,7 +139,7 @@ body, html{
   // border radius
   @radius: 8px;
   -moz-border-radius-topleft: @radius; // FF1+
-  -moz-border-radius-bottomleftt: @radius; // FF1+
+  -moz-border-radius-bottomleft: @radius; // FF1+
   -webkit-border-top-left-radius: @radius; // Saf3-4
   -webkit-border-bottom-left-radius: @radius; // Saf3-4
   border-top-left-radius: @radius; // Opera 10.5, IE9, Saf5, Chrome
@@ -182,7 +182,7 @@ body, html{
 #clear{
   // border radius
   @radius: 8px;
-  -moz-border-radius-toprigh: @radius; // FF1+
+  -moz-border-radius-topright: @radius; // FF1+
   -moz-border-radius-bottomright: @radius; // FF1+
   -webkit-border-top-right-radius: @radius; // Saf3-4
   -webkit-border-bottom-right-radius: @radius; // Saf3-4
@@ -238,6 +238,13 @@ canvas{
   cursor: crosshair !important;
 }
 
+// overflow for the box shadow on footer
+#footerWrapper{
+  .floatClear;
+  width: 100%;
+  overflow: hidden;
+}
+
 #footer{
   .floatClear;
   width: 100%;
@@ -284,8 +291,8 @@ canvas{
 .ui-corner-all{
   // border radius
   @radius: 8px;
-  -moz-border: @radius; // FF1+
-  -webkit-border: @radius; // Saf3-4
+  -moz-border-radius: @radius; // FF1+
+  -webkit-border-radius: @radius; // Saf3-4
   border-radius: @radius; // Opera 10.5, IE9, Saf5, Chrome
 }
 
