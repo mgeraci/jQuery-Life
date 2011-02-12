@@ -1,0 +1,65 @@
+#!/usr/bin/env ruby
+
+# ===============
+# = Stylesheets =
+# ===============
+
+puts 'minifying the css files'
+
+# browser specific stylesheets
+
+# navigate to the stylesheet directory and put its contents in a variable
+stylesheets = `cd stylesheets/; ls`
+
+# put the variable into an array
+styleArray = []
+styleArray = stylesheets.split(/\n/)
+
+# get rid of the .css extension and ignores the .less files
+styleArrayScrubbed = []
+styleArray.each do |file|
+  if /css/ =~ file
+    x = file.sub(/\.css/, '')
+    styleArrayScrubbed << x
+  end
+end
+
+# for each browser sheet, run the yui minifier
+styleArrayScrubbed.each do |file|
+  command = 'java -jar script/yuicompressor-2.4.2.jar -o stylesheets/' + file + '.css stylesheets/' + file + '.css'
+  `#{command}`
+end
+
+
+# ==============
+# = Javascript =
+# ==============
+
+puts 'minifying javscript files'
+
+# js files to minify
+all_js = ['application', 'jquery-ui', 'patternsData']
+
+# minify all the unminified javascripts
+all_js.each do |file|
+  `#{'script/jsmin.rb <js/' + file + '.js> js/' + file + '.min.js'}`
+end
+
+puts 'combining the javascript files'
+
+# array of files to include in the pack
+js_files = ['json', 'jquery-ui.min', 'patternsData.min', 'application.min']
+
+# for each file, add the contents to a new array
+theJS = []
+js_files.each do |file|
+  f = File.read('js/' + file + '.js')
+  theJS << f
+end
+
+# for each contents, put on a line in pack.js
+File.open('js/pack.js', 'w') do |f|
+  f.puts theJS.join(' ')
+end
+
+puts 'done! enjoy your minified files!'

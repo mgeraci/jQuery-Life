@@ -2,17 +2,26 @@
 <html>
   <head>
     <title>jQuery Life - Michael P. Geraci</title>
-    <link rel='stylesheet/less' href='/stylesheets/style.less' type='text/css' />
-    <script src='/js/less.min.js'></script>
-    <script type='text/javascript' charset='utf-8'>
-        less.env = 'development';
-        less.watch();
-    </script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-    <script type="text/javascript" src="/js/json.js"></script>
-    <script type="text/javascript" src="/js/jquery-ui.js"></script>
-    <script type="text/javascript" src="/js/patternsData.js"></script>
-    <script type="text/javascript" src="/js/application.js"></script>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <?php
+      if (preg_match('/michaelgeraci\.com/', $_SERVER['SERVER_NAME'] )) {
+        echo '<link rel="stylesheet" type="text/css" href="/style/style.css">
+        <script src="/js/lab.min.js" type="text/javascript"></script>
+        <script type="text/javascript">$LAB.setOptions({AlwaysPreserveOrder:true}).script("//ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js").script("/js/pack.js")</script>';
+      } else {
+        echo '<link rel="stylesheet/less" href="/stylesheets/style.less" type="text/css" />
+        <script src="/js/less.min.js"></script>
+        <script type="text/javascript" charset="utf-8">
+          less.env = "development";
+          less.watch();
+        </script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+        <script type="text/javascript" src="/js/json.js"></script>
+        <script type="text/javascript" src="/js/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="/js/patternsData.js"></script>
+        <script type="text/javascript" src="/js/application.js"></script>';
+      }
+    ?>
   </head>
   <body>
     <div id="background">
@@ -36,7 +45,7 @@
     </div>
     <div id="footer">
       <div class="centered">
-        Hey there, I'm Michael P. Geraci, a New York based web designer and U/X guy. I made this for fun over New Year's 2011. It was created with jQuery and Canvas.
+        Hey there, I'm Michael P. Geraci, a web designer and U/X guy. I made this for fun over New Year's 2011. It was created with jQuery and Canvas.
         <br>
         <br>You can contact me at <a href="mailto:mgeraci@gmail.com">&#109;&#103;&#101;&#114;&#97;&#99;&#105;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a>, <a href="http://www.michaelgeraci.com">see my other work</a>, or <a href="http://github.com/mgeraci/jQuery-Life">view the source at github</a>.
       </div>

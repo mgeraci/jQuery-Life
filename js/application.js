@@ -49,7 +49,16 @@ function buttons(){
     render(state);// render the new grid
 
     // set the select to "load a pattern"
-    $('#pattern').val('0')
+    $('#pattern').val('0');
+
+    // change the selectmenu text to "load a pattern"
+    $('.ui-selectmenu-status').text('load a pattern');
+
+    // set all the dropdown's aria-selected to false
+    $('.ui-selectmenu-menu').find('li').removeClass('ui-selectmenu-item-selected').removeClass('ui-state-active').removeClass('ui-selectmenu-item-focus').removeClass('ui-state-hover').find('a').attr('aria-selected', 'false')
+
+    // set "load a pattern"'s aria-selected to true
+    $('.ui-selectmenu-menu').find('li:eq(0)').addClass('ui-selectmenu-item-selected').addClass('ui-state-active').find('a').attr('aria-selected', 'true')
   });
 
   $('#clear').click(function(){

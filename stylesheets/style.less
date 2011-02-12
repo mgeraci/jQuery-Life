@@ -65,7 +65,7 @@ body, html{
   margin: 20px 0 0 25px;
   padding: 10px 0 10px @toolsLeft;
   width: 901px - @toolsLeft;
-  background: rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.25);
   text-shadow: rgba(0,0,0,0.2) -1px 0, rgba(0,0,0,0.2) 0 -1px, rgba(255,255,255,0.2) 0 1px;
 }
 
@@ -317,12 +317,15 @@ canvas{
 }
 
 
-// Icon
+// icon
 .ui-icon-triangle-2-n-s{
   width: 16px;
   height: 18px;
   background: url(/images/controls.png) -99px -3px no-repeat;
 }
+
+// icon position
+.ui-selectmenu-icon{position:absolute; right:6px; margin-top:-9px; top: 50%; }
 
 
 // Selectmenu
@@ -333,9 +336,9 @@ canvas{
   text-decoration: none;
   overflow: hidden;
 }
-.ui-selectmenu-icon { position:absolute; right:6px; margin-top:-9px; top: 50%; }
-.ui-selectmenu-menu { padding:0; margin:0; list-style:none; position:absolute; top: 0; visibility: hidden; overflow: auto; }
-.ui-selectmenu-open { visibility: visible; }
+
+.ui-selectmenu-menu{padding:0; margin:0; list-style:none; position:absolute; top: 0; visibility: hidden; overflow: auto; }
+.ui-selectmenu-open{visibility: visible; }
 
 // rounding for the first and last list elements
 .ui-selectmenu-menu li:first-child{
@@ -356,6 +359,12 @@ canvas{
   -webkit-border-bottom-left-radius: @radius; // Saf3-4
   border-bottom-right-radius: @radius; // Opera 10.5, IE9, Saf5, Chrome
   border-bottom-left: @radius; // Opera 10.5, IE9, Saf5, Chrome
+}
+
+// set height and overflow on status
+.ui-selectmenu-status{
+  height: 20px;
+  overflow: hidden;
 }
 
 .ui-selectmenu-menu li { padding:0; margin:0; display: block; border-top: 1px dotted transparent; border-bottom: 1px dotted transparent; border-right-width: 0 !important; border-left-width: 0 !important; font-weight: normal !important; }
