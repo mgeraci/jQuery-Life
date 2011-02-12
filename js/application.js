@@ -22,18 +22,19 @@ $(function(){
   randomize();// initial randomization
   render(state);// initial render
   drawHandler();
+  selectmenu();
 });
 
 // control the running of the game
 function buttons(){
-  $('#status span').click(function(){
-    if ($(this).html() == 'pause'){
-      $(this).html('play');
+  $('#status').click(function(){
+    if ($(this).children('span').html() == 'pause'){
+      $(this).children('span').html('play');
     } else {
-      $(this).html('pause');
+      $(this).children('span').html('pause');
     }
 
-    $(this).toggleClass('active');
+    $(this).children('span').toggleClass('active');
 
     createNext();
 
@@ -46,6 +47,9 @@ function buttons(){
 
     randomize();// randomize a new grid
     render(state);// render the new grid
+
+    // set the select to "load a pattern"
+    $('#pattern').val('0')
   });
 
   $('#clear').click(function(){
@@ -258,7 +262,7 @@ function createNext(){
   render(state);
 
   // increment the generation count
-  $('#count').html(parseInt($('#count').html(), 10) + 1);
+  $('#count').html(commaFormat(parseInt($('#count').text().replace(/,/g, ''), 10) + 1));
 
   // if the toggle is active, run again
   if ($('#status span').hasClass('active')) {
@@ -435,4 +439,26 @@ function draw(x, y){
     // set it as empty in the state
     delete state[y][x];
   }
+}
+
+function selectmenu(){
+  $('#pattern').selectmenu();
+}
+
+// add a comma in a number for each thousand
+function commaFormat(nStr){
+  nStr += '';
+  x = nStr.split('.');
+  x1 = x[0];
+  if (x.length > 1) {
+    x2 = '.' + x[1];
+  } else {
+    x2 = '';
+  }
+  rgx = /(\d+)(\d{3})/;
+  while (rgx.test(x1)) {
+    x1 = x1.replace(rgx, '$1' + ',' + '$2');
+  }
+
+  return x1 + x2;
 }

@@ -57,7 +57,7 @@ body, html{
   margin: 10px 0 0 90px;
 }
 
-@toolsLeft: 50px;
+@toolsLeft: 10px;
 
 // toolbar
 #tools{
@@ -79,14 +79,14 @@ body, html{
 @buttonPadding: 7px;
 
 // master button color - change this to change all the colors
-@buttonColor: #88C9CF;
+@buttonColor: #b1e2bb;
 
 // slave colors
 @defaultStart: @buttonColor + 35%;
 @defaultEnd: @buttonColor;
 @borderColor: @buttonColor - 50%;
 
-@color: #000;
+@color: #a698a5 - 50%;
 
 .button{
   float: left;
@@ -99,7 +99,7 @@ body, html{
   -ms-filter: %("progid:DXImageTransform.Microsoft.gradient(startColorstr=%d, endColorstr=%d)", @defaultStart, @defaultEnd); // IE8
 }
 
-.button:hover{
+.buttonHover{
   color: @color;
 
   @start: @defaultStart - 20%;
@@ -112,7 +112,9 @@ body, html{
   -ms-filter: %("progid:DXImageTransform.Microsoft.gradient(startColorstr=%d, endColorstr=%d)", @start, @end); // IE8
 }
 
-.button:active{
+.button:hover{.buttonHover;}
+
+.buttonActive{
   color: @color;
 
   @start: @defaultStart - 40%;
@@ -124,6 +126,8 @@ body, html{
   filter: %("progid:DXImageTransform.Microsoft.gradient(startColorstr=%d, endColorstr=%d)", @start, @end); // IE6 & 7
   -ms-filter: %("progid:DXImageTransform.Microsoft.gradient(startColorstr=%d, endColorstr=%d)", @start, @end); // IE8
 }
+
+.button:active{.buttonActive}
 
 @playWidth: 20px;
 @pauseWidth: 20px;
@@ -198,11 +202,21 @@ body, html{
   }
 }
 
+// generation counter
+#countWrapper{
+  .button;
+  border: 2px solid @borderColor;
+  .ui-corner-all;
+  padding: 10px 0 10px 12px;
+  margin: 0 0 0 20px;
+}
+
 // click on canvas to draw/erase
 #drawNote{
+  float: right;
+  margin: 13px 10px 0 0;
   color: #777;
-  font-style: oblique;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.08em;
   text-shadow: rgba(0,0,0,0.1) -1px 0, rgba(0,0,0,0.1) 0 -1px, rgba(255,255,255,0.1) 0 1px;
 }
 
@@ -230,18 +244,19 @@ canvas{
   font-family: 'NeutrafaceSlabDisplayMedium';
   padding: 30px 0 0 0;
   background: #140C01 url(/images/footer.png) 0 0;
-  border: 2px solid #666;
-  border-width: 3px 0 0 0;
+  border: 2px solid #444;
+  border-width: 2px 0 0 0;
 
   font-family: 'NeutrafaceSlabDisplayMedium', helvetica, arial, sans-serif;
   color: @footerColor;
   letter-spacing: 0.1em;
   font-size: 33px;
+  line-height: 43px;
   text-shadow: rgba(0,0,0,0.5) -1px 0, rgba(0,0,0,0.5) 0 -1px, rgba(255,255,255,0.2) 0 1px;
 
-  -moz-box-shadow: 0px 0px 5px #000; /* FF3.5+ */
-  -webkit-box-shadow: 0px 0px 5px #000; /* Saf3.0+, Chrome */
-  box-shadow: 0px 0px 5px #000; /* Opera 10.5, IE9 */
+  -moz-box-shadow: 0px 0px 3px #000; /* FF3.5+ */
+  -webkit-box-shadow: 0px 0px 3px #000; /* Saf3.0+, Chrome */
+  box-shadow: 0px 0px 3px #000; /* Opera 10.5, IE9 */
 
   a{color: @footerColor;}
   a:hover, a:active{color: @seafoam;}
@@ -260,3 +275,93 @@ canvas{
   -webkit-box-shadow: 0px 0px 5px #000; /* Saf3.0+, Chrome */
   box-shadow: 0px 0px 5px #000; /* Opera 10.5, IE9 */
 }
+
+/* ============= */
+/* = UI Select = */
+/* ============= */
+
+// jquery-ui specific border-radius
+.ui-corner-all{
+  // border radius
+  @radius: 8px;
+  -moz-border: @radius; // FF1+
+  -webkit-border: @radius; // Saf3-4
+  border-radius: @radius; // Opera 10.5, IE9, Saf5, Chrome
+}
+
+// Interaction states
+.ui-state-default{
+  .button;
+  border: 2px solid @borderColor;
+  height: 27px !important;
+  padding-top: 4px;
+  color: @color;
+  outline: none;
+  letter-spacing: 0.08em;
+  margin-left: 20px;
+}
+
+// import hover state
+.ui-state-hover{.buttonHover;}
+
+// import active state
+.ui-state-active{.buttonActive;}
+
+// popup
+.ui-widget-content{
+  border: 2px solid @borderColor;
+  background: @buttonColor + 20%;
+  color: @color;
+
+  a{color: @color;}
+}
+
+
+// Icon
+.ui-icon-triangle-2-n-s{
+  width: 16px;
+  height: 18px;
+  background: url(/images/controls.png) -99px -3px no-repeat;
+}
+
+
+// Selectmenu
+.ui-selectmenu{
+  display: block;
+  position: relative;
+  height:2em;
+  text-decoration: none;
+  overflow: hidden;
+}
+.ui-selectmenu-icon { position:absolute; right:6px; margin-top:-9px; top: 50%; }
+.ui-selectmenu-menu { padding:0; margin:0; list-style:none; position:absolute; top: 0; visibility: hidden; overflow: auto; }
+.ui-selectmenu-open { visibility: visible; }
+
+// rounding for the first and last list elements
+.ui-selectmenu-menu li:first-child{
+  @radius: 8px;
+  -moz-border-radius-topright: @radius; // FF1+
+  -moz-border-radius-topleft: @radius; // FF1+
+  -webkit-border-top-right-radius: @radius; // Saf3-4
+  -webkit-border-top-left-radius: @radius; // Saf3-4
+  border-top-right-radius: @radius; // Opera 10.5, IE9, Saf5, Chrome
+  border-top-left: @radius; // Opera 10.5, IE9, Saf5, Chrome
+}
+
+.ui-selectmenu-menu li:last-child{
+  @radius: 8px;
+  -moz-border-radius-bottomright: @radius; // FF1+
+  -moz-border-radius-bottomleft: @radius; // FF1+
+  -webkit-border-bottom-right-radius: @radius; // Saf3-4
+  -webkit-border-bottom-left-radius: @radius; // Saf3-4
+  border-bottom-right-radius: @radius; // Opera 10.5, IE9, Saf5, Chrome
+  border-bottom-left: @radius; // Opera 10.5, IE9, Saf5, Chrome
+}
+
+.ui-selectmenu-menu li { padding:0; margin:0; display: block; border-top: 1px dotted transparent; border-bottom: 1px dotted transparent; border-right-width: 0 !important; border-left-width: 0 !important; font-weight: normal !important; }
+.ui-selectmenu-menu li a,.ui-selectmenu-status {line-height: 1.4em; display:block; padding:.3em 1em; outline:none; text-decoration:none; }
+.ui-selectmenu-menu li.ui-selectmenu-hasIcon a,
+.ui-selectmenu-hasIcon .ui-selectmenu-status { padding-left: 20px; position: relative; margin-left: 5px; }
+.ui-selectmenu-menu li .ui-icon, .ui-selectmenu-status .ui-icon { position: absolute; top: 1em; margin-top: -8px; left: 0; }
+.ui-selectmenu-menu li span,.ui-selectmenu-status span { display:block; margin-bottom: .2em; }
+.ui-selectmenu-menu li .ui-selectmenu-item-header { font-weight: bold; }

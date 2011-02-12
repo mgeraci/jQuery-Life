@@ -10,6 +10,7 @@
     </script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
     <script type="text/javascript" src="/js/json.js"></script>
+    <script type="text/javascript" src="/js/jquery-ui.js"></script>
     <script type="text/javascript" src="/js/patternsData.js"></script>
     <script type="text/javascript" src="/js/application.js"></script>
   </head>
@@ -22,7 +23,9 @@
           <a id="reset" class="button" href="#"><span>randomize</span></a>&nbsp;&nbsp;&nbsp;
           <a id="clear" class="button" href="#"><span>clear</a></a>&nbsp;&nbsp;&nbsp;
           <select id="pattern"></select>
-          <span id="count">0</span> generations&nbsp;&nbsp;&nbsp;
+          <span id="countWrapper">
+            <span id="count">0</span> generations&nbsp;&nbsp;&nbsp;
+          </span>
           <span id="drawNote">click on the canvas to draw/erase</span>
         </div>
         <div id="canvases">
