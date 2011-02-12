@@ -5,7 +5,7 @@
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <?php
       if (preg_match('/michaelgeraci\.com/', $_SERVER['SERVER_NAME'] )) {
-        echo '<link rel="stylesheet" type="text/css" href="/style/style.css">
+        echo '<link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
         <script src="/js/lab.min.js" type="text/javascript"></script>
         <script type="text/javascript">$LAB.setOptions({AlwaysPreserveOrder:true}).script("//ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js").script("/js/pack.js")</script>';
       } else {
