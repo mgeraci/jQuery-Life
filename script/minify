@@ -45,21 +45,4 @@ all_js.each do |file|
   `#{'script/jsmin.rb <js/' + file + '.js> js/' + file + '.min.js'}`
 end
 
-puts 'combining the javascript files'
-
-# array of files to include in the pack
-js_files = ['json', 'jquery-ui.min', 'patternsData.min', 'application.min']
-
-# for each file, add the contents to a new array
-theJS = []
-js_files.each do |file|
-  f = File.read('js/' + file + '.js')
-  theJS << f
-end
-
-# for each contents, put on a line in pack.js
-File.open('js/pack.js', 'w') do |f|
-  f.puts theJS.join(' ')
-end
-
 puts 'done! enjoy your minified files!'

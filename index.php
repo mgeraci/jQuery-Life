@@ -6,22 +6,22 @@
     <?php
       if (preg_match('/michaelgeraci\.com/', $_SERVER['SERVER_NAME'] )) {
         echo '<link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
-        <script src="/js/lab.min.js" type="text/javascript"></script>
-        <script type="text/javascript">$LAB.setOptions({AlwaysPreserveOrder:true}).script("//ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js").script("/js/pack.js")</script>';
+    <script src="/js/lab.min.js" type="text/javascript"></script>
+    <script type="text/javascript">$LAB.setOptions({AlwaysPreserveOrder:true}).script("//ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js").script("/js/jquery-ui.min.js").script("/js/patternsData.min.js").script("/js/application.min.js")</script>';
       } else {
-        echo '<link rel="stylesheet/less" href="/stylesheets/style.less" type="text/css">
-        <script src="/js/less.min.js"></script>
-        <script type="text/javascript" charset="utf-8">
-          less.env = "development";
-          less.watch();
-        </script>
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
-        <script type="text/javascript" src="/js/json.js"></script>
-        <script type="text/javascript" src="/js/jquery-ui.js"></script>
-        <script type="text/javascript" src="/js/patternsData.js"></script>
-        <script type="text/javascript" src="/js/application.js"></script>';
+      echo '<link rel="stylesheet/less" href="/stylesheets/style.less" type="text/css">
+    <script src="/js/less.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+    less.env = "development";
+    less.watch();
+    </script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/js/patternsData.min.js"></script>
+    <script type="text/javascript" src="/js/application.min.js"></script>';
       }
     ?>
+
   </head>
   <body>
     <div id="background">
