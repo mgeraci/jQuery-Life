@@ -3,6 +3,7 @@
   <head>
     <title>jQuery Life - Michael P. Geraci</title>
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <meta name="description" content="Conway's Game of Life, implemented in jQuery and Canvas by Michael P. Geraci.">
     <?php
       if (preg_match('/michaelgeraci\.com/', $_SERVER['SERVER_NAME'] )) {
         echo '<link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
