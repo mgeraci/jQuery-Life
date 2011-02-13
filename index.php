@@ -9,7 +9,7 @@
         <script src="/js/lab.min.js" type="text/javascript"></script>
         <script type="text/javascript">$LAB.setOptions({AlwaysPreserveOrder:true}).script("//ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js").script("/js/pack.js")</script>';
       } else {
-        echo '<link rel="stylesheet/less" href="/stylesheets/style.less" type="text/css" />
+        echo '<link rel="stylesheet/less" href="/stylesheets/style.less" type="text/css">
         <script src="/js/less.min.js"></script>
         <script type="text/javascript" charset="utf-8">
           less.env = "development";
@@ -17,7 +17,7 @@
         </script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
         <script type="text/javascript" src="/js/json.js"></script>
-        <script type="text/javascript" src="/js/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="/js/jquery-ui.js"></script>
         <script type="text/javascript" src="/js/patternsData.js"></script>
         <script type="text/javascript" src="/js/application.js"></script>';
       }
@@ -46,9 +46,9 @@
     <div id="footerWrapper">
       <div id="footer">
         <div class="centered">
-          Hey there, I'm Michael P. Geraci, a web designer and U/X guy. I made this for fun over New Year's 2011. It was created with jQuery and Canvas.
+          Hey there, I'm Michael P. Geraci, a web designer and U/X guy. I made this for fun over New Year's 2011. It was created with jQuery/Coffescript and Canvas. <a href="http://github.com/mgeraci/jQuery-Life">Check out the source at github</a>.
           <br>
-          <br>You can contact me at <a href="mailto:mgeraci@gmail.com">&#109;&#103;&#101;&#114;&#97;&#99;&#105;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a>, <a href="http://www.michaelgeraci.com">see my other work</a>, or <a href="http://github.com/mgeraci/jQuery-Life">view the source at github</a>.
+          <br><a href="mailto:mgeraci@gmail.com">Email me</a> or <a href="http://www.michaelgeraci.com">see my other work</a>.
         </div>
         <div id="footerTrans">
           <div class="centered">

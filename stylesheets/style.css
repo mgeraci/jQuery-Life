@@ -103,8 +103,8 @@ body, html {
   border-top-left-radius: 8px;
   border-bottom-left: 8px;
   padding: 7px 7px 7px 12px;
-  border: 2px solid #7fb089;
-  border-width: 2px 0 2px 2px;
+  border: 1px solid #7fb089;
+  border-width: 1px 0 1px 1px;
 }
 #status span {
   display: block;
@@ -125,8 +125,8 @@ body, html {
   background: url(/images/controls.png) -20px 0 no-repeat;
 }
 #reset {
-  border: 2px solid #7fb089;
-  border-width: 2px 0;
+  border: 1px solid #7fb089;
+  border-width: 1px 0;
 }
 #reset span {
   display: block;
@@ -145,8 +145,8 @@ body, html {
   border-top-right-radius: 8px;
   border-bottom-right: 8px;
   padding: 7px 7px 7px 7px;
-  border: 2px solid #7fb089;
-  border-width: 2px 2px 2px 0;
+  border: 1px solid #7fb089;
+  border-width: 1px 1px 1px 0;
 }
 #clear span {
   display: block;
@@ -165,7 +165,7 @@ body, html {
   background: -webkit-gradient(linear, left top, left bottom, from(#d4ffde), color-stop(0.46, #d4ffde), color-stop(0.54, #b1e2bb), to(#b1e2bb));
   filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#d4ffde, endColorstr=#b1e2bb)";
   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#d4ffde, endColorstr=#b1e2bb)";
-  border: 2px solid #7fb089;
+  border: 1px solid #7fb089;
   -moz-border-radius: 8px;
   -webkit-border-radius: 8px;
   border-radius: 8px;
@@ -266,7 +266,7 @@ canvas {
   background: -webkit-gradient(linear, left top, left bottom, from(#d4ffde), color-stop(0.46, #d4ffde), color-stop(0.54, #b1e2bb), to(#b1e2bb));
   filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#d4ffde, endColorstr=#b1e2bb)";
   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#d4ffde, endColorstr=#b1e2bb)";
-  border: 2px solid #7fb089;
+  border: 1px solid #7fb089;
   height: 27px !important;
   padding-top: 4px;
   color: #746673;
@@ -291,7 +291,7 @@ canvas {
   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#acddb6, endColorstr=#89ba93)";
 }
 .ui-widget-content {
-  border: 2px solid #7fb089;
+  border: 1px solid #7fb089;
   background: #c5f6cf;
   color: #746673;
 }
@@ -382,4 +382,22 @@ canvas {
 }
 .ui-selectmenu-menu li .ui-selectmenu-item-header {
   font-weight: bold;
+}
+#badBrowser {
+  width: 100%;
+  background: #f00;
+  color: #fff;
+  border: 2px solid #A10606;
+  border-width: 2px 0;
+}
+#badBrowser div {
+  padding: 30px;
+  text-align: center;
+}
+#badBrowser a {
+  color: #fff;
+  text-decoration: underline;
+}
+#badBrowser a:hover, #badBrowser a:active {
+  color: #000;
 }

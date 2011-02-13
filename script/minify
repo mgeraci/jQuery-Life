@@ -38,7 +38,7 @@ end
 puts 'minifying javscript files'
 
 # js files to minify
-all_js = ['application', 'jquery-ui', 'patternsData']
+all_js = ['jquery-ui', 'patternsData', 'application']
 
 # minify all the unminified javascripts
 all_js.each do |file|

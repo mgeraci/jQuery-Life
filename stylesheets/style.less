@@ -134,6 +134,8 @@ body, html{
 @resetWidth: 25px;
 @eraseWidth: 29px;
 
+@borderWidth: 1px;
+
 // controls
 #status{
   // border radius
@@ -147,8 +149,8 @@ body, html{
 
   padding: @buttonPadding @buttonPadding @buttonPadding 12px;
 
-  border: 2px solid @borderColor;
-  border-width: 2px 0 2px 2px;
+  border: @borderWidth solid @borderColor;
+  border-width: @borderWidth 0 @borderWidth @borderWidth;
 
   // play
   span{
@@ -168,8 +170,8 @@ body, html{
 }
 
 #reset{
-  border: 2px solid @borderColor;
-  border-width: 2px 0;
+  border: @borderWidth solid @borderColor;
+  border-width: @borderWidth 0;
 
   span{
     .sprite;
@@ -191,8 +193,8 @@ body, html{
 
   padding: @buttonPadding 7px @buttonPadding @buttonPadding;
 
-  border: 2px solid @borderColor;
-  border-width: 2px 2px 2px 0;
+  border: @borderWidth solid @borderColor;
+  border-width: @borderWidth @borderWidth @borderWidth 0;
 
   span{
     .sprite;
@@ -205,7 +207,7 @@ body, html{
 // generation counter
 #countWrapper{
   .button;
-  border: 2px solid @borderColor;
+  border: @borderWidth solid @borderColor;
   .ui-corner-all;
   padding: 10px 0 10px 12px;
   margin: 0 0 0 20px;
@@ -299,7 +301,7 @@ canvas{
 // Interaction states
 .ui-state-default{
   .button;
-  border: 2px solid @borderColor;
+  border: @borderWidth solid @borderColor;
   height: 27px !important;
   padding-top: 4px;
   color: @color;
@@ -316,7 +318,7 @@ canvas{
 
 // popup
 .ui-widget-content{
-  border: 2px solid @borderColor;
+  border: @borderWidth solid @borderColor;
   background: @buttonColor + 20%;
   color: @color;
 
@@ -381,3 +383,20 @@ canvas{
 .ui-selectmenu-menu li .ui-icon, .ui-selectmenu-status .ui-icon { position: absolute; top: 1em; margin-top: -8px; left: 0; }
 .ui-selectmenu-menu li span,.ui-selectmenu-status span { display:block; margin-bottom: .2em; }
 .ui-selectmenu-menu li .ui-selectmenu-item-header { font-weight: bold; }
+
+// bad browser
+#badBrowser{
+  width: 100%;
+  background: #f00;
+  color: #fff;
+  border: 2px solid #A10606;
+  border-width: 2px 0;
+
+  div{
+    padding: 30px;
+    text-align: center;
+  }
+
+  a{color: #fff; text-decoration: underline;}
+  a:hover, a:active{color: #000;}
+}

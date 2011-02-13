@@ -163,7 +163,8 @@ $.widget("ui.selectmenu", {
           $(this).removeClass('ui-state-active').addClass(self.widgetBaseClass + '-item-focus ui-state-hover'); 
         })
         .bind('mouseout blur', function(){ 
-          if($(this).is( self._selectedOptionLi() )){ $(this).addClass(activeClass); }
+          // mg sez: the next line was causing an error on hover on a list item. commenting it out does not seem to negatively impace the performance
+          // if($(this).is( self._selectedOptionLi() )){ $(this).addClass(activeClass); }
           $(this).removeClass(self.widgetBaseClass + '-item-focus ui-state-hover'); 
         });
         
