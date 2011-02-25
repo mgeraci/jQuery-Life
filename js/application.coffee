@@ -27,7 +27,7 @@ badBrowser = ->
   isBad = false
 
   # ie
-  isBad = true if $.browser.msie
+  isBad = true if $.browser.msie && $.browser.version.substr(0, 1) < '9'
 
   $('body').prepend('<div id="badBrowser" class="wrapWrap"><div class="wrap">Your browser is not supported, so jQuery Life will not work.<br>Please visit using Chrome or Firefox.<br><br><a href="http:#www.mozilla.com/en-US/firefox/firefox.html">Mozilla Firefox</a>&nbsp;|&nbsp;<a href="http:#www.google.com/chrome">Google Chrome</a></div></div>') if isBad
 

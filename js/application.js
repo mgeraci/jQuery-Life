@@ -23,7 +23,7 @@
   badBrowser = function() {
     var isBad;
     isBad = false;
-    if ($.browser.msie) {
+    if ($.browser.msie && $.browser.version.substr(0, 1) < '9') {
       isBad = true;
     }
     if (isBad) {
