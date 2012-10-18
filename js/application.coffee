@@ -9,7 +9,6 @@ newState = [] # holds the state of the next generation
 timer = ''
 speed = 70 # speed in ms for the settimeout
 liveCount = 0 # number of cells alive around a cell
-clicked = false # are we currently clicking?
 tool = '' # drawing or erasing
 c = '' # the container
 cOff = '' # offset of canvas element
@@ -228,7 +227,7 @@ createNext = ->
 
     # iterate through the widths
     for iw in [0..width]
-      newState[ih][iw] = 1 if survives(state[ih][iw], getLiveNeighbors(ih, iw))
+      newState[ih][iw] = 1 if survives(ih, iw)
 
   state = newState
 
@@ -242,7 +241,6 @@ createNext = ->
   if $('#status span').hasClass('active')
     # delay before the next generation
     timer = setTimeout('createNext()', speed)
-
 
 # for each surrounding cell, increment liveCount, then push that into the array
 getLiveNeighbors = (y, x)->
@@ -267,8 +265,10 @@ getLiveNeighbors = (y, x)->
   liveCount
 
 # should this cell live or die?
-survives = (current, liveCount) ->
-  if current == 1
+survives = (y, x) ->
+  liveCount = getLiveNeighbors(y, x)
+
+  if state[y][x] == 1
     return false if liveCount < 2
     return true if liveCount == 2 || liveCount == 3
     return false if liveCount > 3
@@ -284,20 +284,17 @@ drawHandler = ->
   cOff = c.offset()
 
   # on mousedown, check coordinates and set a clicked flag
-  $('body').mousedown((ev) ->
+  c.mousedown((e) ->
     clicked = true
 
     # get the initial coordinate
-    getCoords(ev)
+    convertCoords(e)
 
     # if it's within the range
     if mvX < width && mvY < height && mvX > 0 && mvY > 0
       # set the tool to match what you just clicked on
       # ie - if you clicked on a blank, you want to start drawing
-      if state[mvY][mvX]
-        tool = 'erase'
-      else
-        tool = 'draw'
+      tool = if state[mvY][mvX] then 'erase' else 'draw'
 
       draw(mvX, mvY)
   ).mouseup( ->
@@ -305,13 +302,14 @@ drawHandler = ->
   )
 
   # on mousemove check coordinates
+  # drawing if clicked (for dragging)
   c.mousemove (e) ->
-    checkCoords(e)
+    checkCoords(e) if clicked
 
 # sees if the current coordinates are on the canvas
 checkCoords = (e) ->
   # get the current coordinates in the canvas
-  getCoords(e)
+  convertCoords(e)
 
   # if it's within the range and different from the last coordinate
   if  (mvX < width && mvY < height) && (mvX != lastX || mvY != lastY)
@@ -319,12 +317,12 @@ checkCoords = (e) ->
     lastX = mvX
     lastY = mvY
 
-    draw(mvX, mvY) if clicked
+    draw(mvX, mvY)
 
 # convert mouse position to cell number
-getCoords = (ev) ->
-  mvX = Math.floor((ev.pageX - cOff.left) / cellSize)
-  mvY = Math.floor((ev.pageY - cOff.top) / cellSize)
+convertCoords = (e) ->
+  mvX = Math.floor((e.pageX - cOff.left) / cellSize)
+  mvY = Math.floor((e.pageY - cOff.top) / cellSize)
 
 draw = (x, y) ->
   if tool == 'draw'
