@@ -2,16 +2,18 @@
 width = 150 # number of cells
 height = 100 # number of cells
 cellSize = 6 # size of each cell
+cWidth = width * cellSize
+cHeight = height * cellSize
 state = [] # holds the state of the game
 newState = [] # holds the state of the next generation
 timer = ''
 speed = 70 # speed in ms for the settimeout
 liveCount = 0 # number of cells alive around a cell
+clicked = false # are we currently clicking?
+tool = '' # drawing or erasing
 c = '' # the container
-clicked = '' # are we clicking on the canvas?
 cOff = '' # offset of canvas element
 canvas = '' # the canvas context
-tool = '' # drawing or erasing
 background = '#E4DD98'
 gridColor = '#9B9365'
 cell = '#383302'
@@ -46,7 +48,7 @@ buttons = ->
     createNext()
 
     return false
-  
+
   $('#reset').click ->
     # stop and reset button
     stopGame()
@@ -55,7 +57,7 @@ buttons = ->
     randomize()
 
     # render the new grid
-    render(state)
+    render()
 
     # set the select to "load a pattern"
     $('#pattern').val('0')
@@ -76,7 +78,7 @@ buttons = ->
     stopGame()
 
     # remove everything from the canvas
-    canvas.clearRect(0, 0, width * cellSize, height * cellSize)
+    canvas.clearRect(0, 0, cWidth, cHeight)
 
     # make the grid
     makeGrid()
@@ -137,7 +139,7 @@ patternsFunc = ->
         state[ih] = [] if (!state[ih])
 
       # render the pattern
-      render(state)
+      render()
 
 # creates nested array structure filled randomly
 randomize = ->
@@ -161,45 +163,45 @@ makeGrid = ->
   cGrid = grid[0].getContext('2d')
 
   # set the canvas size
-  grid[0].width = width * cellSize
-  grid[0].height = height * cellSize
+  grid[0].width = cWidth
+  grid[0].height = cHeight
 
   # set the canvas wrapper size
-  $('#canvases').css({'width': width * cellSize, 'height': height * cellSize})
+  $('#canvases').css({'width': cWidth, 'height': cHeight})
 
   # fill the background color
   cGrid.fillStyle = background
-  cGrid.fillRect(0, 0, width * cellSize, height * cellSize)
+  cGrid.fillRect(0, 0, cWidth, cHeight)
 
   # vertical lines
   x = 0.5
-  while x < width * cellSize
+  while x < cWidth
     cGrid.moveTo(x, 0)
-    cGrid.lineTo(x, height * cellSize)
+    cGrid.lineTo(x, cHeight)
     x += cellSize
 
   # horizontal lines
   y = 0.5
-  while y < height * cellSize
+  while y < cHeight
     cGrid.moveTo(0, y)
-    cGrid.lineTo(width * cellSize, y)
+    cGrid.lineTo(cWidth, y)
     y += cellSize
 
   cGrid.strokeStyle = gridColor
   cGrid.stroke()
 
 # loop through the array and display it
-render = (lifeArray) ->
+render = ->
   # get the drawing canvas (the html element, and set the 2-dimensional context)
   c = $('#container')
   canvas = c[0].getContext('2d')
 
-  # size the two canvases
-  c[0].width = width * cellSize
-  c[0].height = height * cellSize
+  # size the canvas
+  c[0].width = cWidth
+  c[0].height = cHeight
 
   # clear the canvas
-  canvas.clearRect(0, 0, width * cellSize, height * cellSize)
+  canvas.clearRect(0, 0, cWidth, cHeight)
 
   # set the fillstyle
   canvas.fillStyle = cell
@@ -212,7 +214,7 @@ render = (lifeArray) ->
     # iterate through the widths
     for iw in [0..width]
       # set the value
-      canvas.fillRect(iw * cellSize, ih * cellSize, cellSize, cellSize) if lifeArray[ih][iw]
+      canvas.fillRect(iw * cellSize, ih * cellSize, cellSize, cellSize) if state[ih][iw]
 
 # make and render the next generation
 createNext = ->
@@ -223,16 +225,15 @@ createNext = ->
   for ih in [0..height]
     # create a subarray for this row
     newState[ih] = []
-  
+
     # iterate through the widths
     for iw in [0..width]
-      if logic(state[ih][iw], getSurroundings(ih, iw))
-        newState[ih][iw] = 1
+      newState[ih][iw] = 1 if survives(state[ih][iw], getLiveNeighbors(ih, iw))
 
   state = newState
 
   # render the new state
-  render(state)
+  render()
 
   # increment the generation count
   $('#count').html(commaFormat(parseInt($('#count').text().replace(/,/g, ''), 10) + 1))
@@ -244,68 +245,35 @@ createNext = ->
 
 
 # for each surrounding cell, increment liveCount, then push that into the array
-getSurroundings = (y, x) ->
+getLiveNeighbors = (y, x)->
   liveCount = 0
 
-  # next
-  if x + 1 >= width
-    next = width - 1 - x
-  else
-    next = x + 1
+  # get the next, previous, above, and below cells
+  # (looping if out of bounds)
+  next = (x + 1) % width
+  prev = (x - 1 + width) % width
+  above = (y - 1 + height) % height
+  below = (y + 1) % height
 
-  liveCount += 1 if state[y]? && state[y][next]?
+  liveCount += 1 if state[y]? && state[y][next]? # next
+  liveCount += 1 if state[y]? && state[y][prev]? # previous
+  liveCount += 1 if state[above]? && state[above][x]? # above
+  liveCount += 1 if state[above]? && state[above][prev]? # above left
+  liveCount += 1 if state[above]? && state[above][next]? # above right
+  liveCount += 1 if state[below]? && state[below][x]? # below
+  liveCount += 1 if state[below]? && state[below][prev]? # below left
+  liveCount += 1 if state[below]? && state[below][next]? # below right
 
-  # previous
-  if x <= 0
-    prev = width - 1 - x
-  else
-    prev = x - 1
-
-  liveCount += 1 if state[y]? && state[y][prev]?
-
-  # above
-  if y - 1 < 0
-    aboveY = height - 1
-  else
-    aboveY = y - 1
-
-  liveCount += 1 if state[aboveY]? && state[aboveY][x]?
-
-  # above left
-  liveCount += 1 if state[aboveY]? && state[aboveY][prev]?
-
-  # above right
-  liveCount += 1 if state[aboveY]? && state[aboveY][next]?
-
-  # below
-  if y + 1 == height
-    belowY = 0
-  else
-    belowY = y + 1
-
-  liveCount += 1 if state[belowY]? && state[belowY][x]?
-
-  # below left
-  liveCount += 1 if state[belowY]? && state[belowY][prev]?
-
-  # below right
-  liveCount += 1 if state[belowY]? && state[belowY][next]?
-
-  return liveCount
+  liveCount
 
 # should this cell live or die?
-logic = (current, liveCount) ->
+survives = (current, liveCount) ->
   if current == 1
     return false if liveCount < 2
-
     return true if liveCount == 2 || liveCount == 3
-
     return false if liveCount > 3
   else
-    if liveCount == 3
-      return true
-    else
-      return false
+    liveCount == 3
 
 # the main handler for drawing/erasing
 drawHandler = ->
@@ -314,10 +282,6 @@ drawHandler = ->
 
   # get the offset of the canvas element
   cOff = c.offset()
-
-  # on mousemove check coordinates
-  c.mousemove (e) ->
-    checkCoords(e)
 
   # on mousedown, check coordinates and set a clicked flag
   $('body').mousedown((ev) ->
@@ -340,10 +304,14 @@ drawHandler = ->
     clicked = false
   )
 
+  # on mousemove check coordinates
+  c.mousemove (e) ->
+    checkCoords(e)
+
 # sees if the current coordinates are on the canvas
-checkCoords = (ev) ->
+checkCoords = (e) ->
   # get the current coordinates in the canvas
-  getCoords(ev)
+  getCoords(e)
 
   # if it's within the range and different from the last coordinate
   if  (mvX < width && mvY < height) && (mvX != lastX || mvY != lastY)
@@ -394,7 +362,7 @@ $( ->
   buttons()
   patternsFunc()
   randomize() # initial randomization
-  render(state) # initial render
+  render() # initial render
   drawHandler()
 )
 
