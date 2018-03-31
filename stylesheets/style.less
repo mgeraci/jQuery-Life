@@ -13,7 +13,8 @@ body{
   font-family: helvetica, arial, sans-serif;
   text-rendering: optimizeLegibility; // some browsers support kerning and ligatures
 
-  // disable text selection. while certainly not optimal to disable selection on entire site, it's more annoying to highlight page elements while drawing
+  // disable text selection. while certainly not optimal to disable selection
+  // on entire site, it's more annoying to highlight page elements while drawing
   -webkit-user-select: none;
   -moz-user-select: none;
 }
@@ -222,19 +223,13 @@ body, html{
   text-shadow: rgba(0,0,0,0.1) -1px 0, rgba(0,0,0,0.1) 0 -1px, rgba(255,255,255,0.1) 0 1px;
 }
 
-// holds the two canvases, has background color
+// holds the two canvases
 #canvases{
   .floatClear;
   position: relative;
   left: 25px;
-  background: #fff;
   border: 1px solid #787878;
   border-width: 0 1px 1px 0;
-
-  // remove these if you change the dimensions in javascript
-  // defined here at all just so the page loads with the elements in the right place
-  width: 900px;
-  height: 600px;
 }
 
 // general canvas style to layer the two

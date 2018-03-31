@@ -44,16 +44,14 @@
 
   lastY = 0;
 
-  badBrowser = function() {
-    var isBad;
-    isBad = false;
-    if ($.browser.msie && $.browser.version.substr(0, 1) < '9') {
-      isBad = true;
-    }
-    if (isBad) {
-      return $('body').prepend('<div id="badBrowser" class="wrapWrap"><div class="wrap">Your browser is not supported, so jQuery Life will not work.<br>Please visit using Chrome or Firefox.<br><br><a href="http:#www.mozilla.com/en-US/firefox/firefox.html">Mozilla Firefox</a>&nbsp;|&nbsp;<a href="http:#www.google.com/chrome">Google Chrome</a></div></div>');
-    }
-  };
+  $(function() {
+    randomize();
+    render();
+    buttons();
+    patternsFunc();
+    drawHandler();
+    return badBrowser();
+  });
 
   buttons = function() {
     $('#status').click(function() {
@@ -338,14 +336,16 @@
     return x1 + x2;
   };
 
-  $(function() {
-    badBrowser();
-    buttons();
-    patternsFunc();
-    randomize();
-    render();
-    return drawHandler();
-  });
+  badBrowser = function() {
+    var isBad;
+    isBad = false;
+    if ($.browser.msie && $.browser.version.substr(0, 1) < '9') {
+      isBad = true;
+    }
+    if (isBad) {
+      return $('body').prepend('<div id="badBrowser" class="wrapWrap"><div class="wrap">Your browser is not supported, so jQuery Life will not work.<br>Please visit using Chrome or Firefox.<br><br><a href="http:#www.mozilla.com/en-US/firefox/firefox.html">Mozilla Firefox</a>&nbsp;|&nbsp;<a href="http:#www.google.com/chrome">Google Chrome</a></div></div>');
+    }
+  };
 
   this.createNext = createNext;
 

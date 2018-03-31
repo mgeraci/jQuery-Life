@@ -23,14 +23,15 @@ mvY = 0
 lastX = 0
 lastY = 0
 
-# if the user's browser is not supported, display the upgrade message
-badBrowser = ->
-  isBad = false
-
-  # ie
-  isBad = true if $.browser.msie && $.browser.version.substr(0, 1) < '9'
-
-  $('body').prepend('<div id="badBrowser" class="wrapWrap"><div class="wrap">Your browser is not supported, so jQuery Life will not work.<br>Please visit using Chrome or Firefox.<br><br><a href="http:#www.mozilla.com/en-US/firefox/firefox.html">Mozilla Firefox</a>&nbsp;|&nbsp;<a href="http:#www.google.com/chrome">Google Chrome</a></div></div>') if isBad
+# run these functions on load
+$( ->
+  randomize() # initial randomization
+  render() # initial render
+  buttons()
+  patternsFunc()
+  drawHandler()
+  badBrowser()
+)
 
 # control the running of the game
 buttons = ->
@@ -353,16 +354,14 @@ commaFormat = (nStr) ->
 
   return x1 + x2
 
+# if the user's browser is not supported, display the upgrade message
+badBrowser = ->
+  isBad = false
 
-# run these functions on load
-$( ->
-  badBrowser()
-  buttons()
-  patternsFunc()
-  randomize() # initial randomization
-  render() # initial render
-  drawHandler()
-)
+  # ie
+  isBad = true if $.browser.msie && $.browser.version.substr(0, 1) < '9'
+
+  $('body').prepend('<div id="badBrowser" class="wrapWrap"><div class="wrap">Your browser is not supported, so jQuery Life will not work.<br>Please visit using Chrome or Firefox.<br><br><a href="http:#www.mozilla.com/en-US/firefox/firefox.html">Mozilla Firefox</a>&nbsp;|&nbsp;<a href="http:#www.google.com/chrome">Google Chrome</a></div></div>') if isBad
 
 # bring the createNext method into the global scope for the timeout
 this.createNext = createNext
