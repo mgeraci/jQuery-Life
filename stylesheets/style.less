@@ -3,8 +3,8 @@
 
 @font-face{
   font-family: 'NeutrafaceSlabDisplayMedium';
-  src: url('/fonts/neutrafaceslabdisplay-medium-webfont.eot');
-  src: local('☺'), url('/fonts/neutrafaceslabdisplay-medium-webfont.woff') format('woff'), url('/fonts/neutrafaceslabdisplay-medium-webfont.ttf') format('truetype'), url('/fonts/neutrafaceslabdisplay-medium-webfont.svg#webfontZ3FVDSXd') format('svg');
+  src: url('../fonts/neutrafaceslabdisplay-medium-webfont.eot');
+  src: local('☺'), url('../fonts/neutrafaceslabdisplay-medium-webfont.woff') format('woff'), url('../fonts/neutrafaceslabdisplay-medium-webfont.ttf') format('truetype'), url('../fonts/neutrafaceslabdisplay-medium-webfont.svg#webfontZ3FVDSXd') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -157,7 +157,7 @@ body, html{
     .sprite;
     width: @playWidth;
     height: 25px;
-    background: url(/images/controls.png) 0 0 no-repeat;
+    background: url(../images/controls.png) 0 0 no-repeat;
   }
 
   // pause
@@ -165,7 +165,7 @@ body, html{
     .sprite;
     width: @pauseWidth;
     height: 25px;
-    background: url(/images/controls.png) @playWidth * -1 0 no-repeat;
+    background: url(../images/controls.png) @playWidth * -1 0 no-repeat;
   }
 }
 
@@ -177,7 +177,7 @@ body, html{
     .sprite;
     width: @resetWidth;
     height: 25px;
-    background: url(/images/controls.png) (@playWidth + @pauseWidth) * -1 0 no-repeat;
+    background: url(../images/controls.png) (@playWidth + @pauseWidth) * -1 0 no-repeat;
   }
 }
 
@@ -200,7 +200,7 @@ body, html{
     .sprite;
     width: @eraseWidth;
     height: 25px;
-    background: url(/images/controls.png) (@playWidth + @pauseWidth + @resetWidth) * -1 0 no-repeat;
+    background: url(../images/controls.png) (@playWidth + @pauseWidth + @resetWidth) * -1 0 no-repeat;
   }
 }
 
@@ -257,7 +257,7 @@ canvas{
   width: 100%;
   font-family: 'NeutrafaceSlabDisplayMedium';
   padding: 30px 0 0 0;
-  background: #140C01 url(/images/footer.png) 0 0;
+  background: #140C01 url(../images/footer.png) 0 0;
   border: 2px solid #444;
   border-width: 2px 0 0 0;
 
@@ -335,7 +335,7 @@ canvas{
 .ui-icon-triangle-2-n-s{
   width: 16px;
   height: 18px;
-  background: url(/images/controls.png) -99px -3px no-repeat;
+  background: url(../images/controls.png) -99px -3px no-repeat;
 }
 
 // icon position

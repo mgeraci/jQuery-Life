@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>jQuery Life - Michael P. Geraci</title>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <meta name="description" content="Conway's Game of Life, implemented in jQuery and Canvas by Michael P. Geraci.">
+    <link rel="stylesheet" type="text/css" href="./stylesheets/style.css">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="./js/patternsData.min.js"></script>
+    <script type="text/javascript" src="./js/application.js"></script>
+  </head>
+  <body>
+    <div id="background">
+      <div class="centered">
+        <img id="logo" width="623" height="310" src="./images/logo.png">
+        <div id="tools">
+          <a id="status" class="button" href="#"><span>play</span></a>&nbsp;&nbsp;&nbsp;
+          <a id="reset" class="button" href="#"><span>randomize</span></a>&nbsp;&nbsp;&nbsp;
+          <a id="clear" class="button" href="#"><span>clear</a></a>&nbsp;&nbsp;&nbsp;
+          <select id="pattern"></select>
+          <span id="countWrapper">
+            <span id="count">0</span> generations&nbsp;&nbsp;&nbsp;
+          </span>
+          <span id="drawNote">click on the canvas to draw/erase</span>
+        </div>
+        <div id="canvases">
+          <canvas id="grid" width="300" height="300"></canvas>
+          <canvas id="container" width="300" height="300"></canvas>
+        </div>
+      </div>
+    </div>
+    <div id="footerWrapper">
+      <div id="footer">
+        <div class="centered">
+          Hey there, I'm Michael P. Geraci, a front-end engineer. I made this
+          for fun over New Year's 2011. It was created with jQuery/Coffescript
+          and Canvas.
+          <a href="http://github.com/mgeraci/jQuery-Life">Check out the source at github</a>.
+          <br>
+          <br><a href="mailto:me@mgeraci.com">Email me</a> or
+          <a href="http://www.michaelgeraci.com">see my other work</a>.
+        </div>
+        <div id="footerTrans">
+          <div class="centered">
+            What is Conway's Game of Life?
+            <br>The game of life is a cellular automaton created by John Conway
+            in 1970. It simulates the life of cells through generations based
+            on a few simple rules:
+            <ul>
+              <li>If a cell has fewer than 2 neighbors, it dies (from starvation)</li>
+              <li>If a cell has 2 or 3 neighbors, it lives on to the next generation</li>
+              <li>If a cell has 4 or more neighbors, it dies (from overpopulation)</li>
+              <li>If a dead cell has 3 living neighbors, it grows (birth)</li>
+            </ul>
+            Thanks for playing!
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
